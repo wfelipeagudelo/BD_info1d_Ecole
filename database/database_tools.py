@@ -27,7 +27,7 @@ class Toolsbd:
             Les paramètres sont définis dans le fichier de configuration "Config_App.yml"
         """
 
-        self.name_fichier_dump_sql_bd = "../database/NOM_PRENOM_INFO1X_SUJET_104_2021.sql"
+        self.name_fichier_dump_sql_bd = "../database/agudelo-stouvenel_felipe_info1d.sql.sql"
         self.name_fichier_config_application = "../Config_App.yml"
         self.connexion_bd = None
 
