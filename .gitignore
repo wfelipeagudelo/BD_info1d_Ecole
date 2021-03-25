@@ -78,7 +78,7 @@ target/
 celerybeat-schedule
 
 # dotenv
-.env
+# .env Pour des raisons de simplification de correction des 80 projets le fichier sera sur Gitlab OM 2021.03.19
 
 # virtualenv
 venv/
