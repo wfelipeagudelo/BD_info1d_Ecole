@@ -1,6 +1,8 @@
 Module 104 "Hurlements en Python et FLASK"
 ---
 
+mes couilles qui dont belles
+
 ## Remarque :
 * En classe j'ai montré comment faire le fichier ".env" avec les variables d'environnement. Ce fichier dans les projets en production ne doit pas se trouver dans le cloud (Gitlab).
 * Pour ce début de projet et pour me simplifier la correction des 80 projets. Je l'ai laissé dans le git, ainsi vous n'avez rien à faire de particulier, pour que la démo fonctionne.
