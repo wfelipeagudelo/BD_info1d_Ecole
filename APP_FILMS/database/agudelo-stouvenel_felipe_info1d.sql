@@ -28,7 +28,7 @@ CREATE DATABASE IF NOT EXISTS agudelo_stouvenel_felipe_info1d;
 
 -- Utilisation de cette base de donnée
 
-USE agudelo_stouvenel_felipe_info1d;
+USE `agudelo-stouvenel_felipe_info1d`;
 
 -- --------------------------------------------------------
 
