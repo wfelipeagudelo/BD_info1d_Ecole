@@ -56,7 +56,7 @@ except environs.EnvError as NameVariableEnv:
           f"{NameVariableEnv}")
 
 except Exception as erreur_fichier_environnement:
+    print(f"Problème avec le fichier \".env\" (nom, emplacement, etc) "
+          f"{erreur_fichier_environnement.args[0]} , "
+          f"{erreur_fichier_environnement}")
     raise ErreurFichierEnvironnement(f"Problème avec le fichier \".env\" (nom, emplacement, etc)")
-    # print(f"Problème avec le fichier \".env\" (nom, emplacement, etc) "
-    #       f"{ErreurLectureFile.args[0]} , "
-    #       f"{ErreurLectureFile}")

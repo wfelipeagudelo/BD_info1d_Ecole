@@ -1,19 +1,19 @@
 -- OM 2021.02.17
 -- FICHIER MYSQL POUR FAIRE FONCTIONNER LES EXEMPLES
 -- DE REQUETES MYSQL
--- Database: zzzzzz_NOM_PRENOM_INFO1X_SUJET_104_2021
+-- Database: zzz_xxxxx_NOM_PRENOM_INFO1X_SUJET_104_2021
 
 -- Détection si une autre base de donnée du même nom existe
 
-DROP DATABASE IF EXISTS zzzzzz_NOM_PRENOM_INFO1X_SUJET_104_2021;
+DROP DATABASE IF EXISTS zzz_xxxxx_NOM_PRENOM_INFO1X_SUJET_104_2021;
 
 -- Création d'un nouvelle base de donnée
 
-CREATE DATABASE IF NOT EXISTS zzzzzz_NOM_PRENOM_INFO1X_SUJET_104_2021;
+CREATE DATABASE IF NOT EXISTS zzz_xxxxx_NOM_PRENOM_INFO1X_SUJET_104_2021;
 
 -- Utilisation de cette base de donnée
 
-USE zzzzzz_NOM_PRENOM_INFO1X_SUJET_104_2021;
+USE zzz_xxxxx_NOM_PRENOM_INFO1X_SUJET_104_2021;
 -- --------------------------------------------------------
 
 --
@@ -45,7 +45,7 @@ INSERT INTO `t_film` (`id_film`, `nom_film`, `duree_film`, `description_film`, `
 (16, 'Ong bak', 148, 'Nong Pradu, un village paisible niché dans une vallée boisée de Thaïlande, est en deuil après le vol de son Bouddha sacré : Ong-Bak. Ting, entraîné secrètement au Muay Thai, art ancien de boxe thaï, se désigne pour aller le récupérer dans la fournaise de Bangkok.', 'https://static.fnac-static.com/multimedia/FR/Images_Produits/FR/fnac.com/Visual_Principal_340/8/2/9/3283451106928/tsp20120928130643/Ong-bak.jpg', '2003-09-23'),
 (17, 'Warrior', 220, 'Ancien Marine brisé, Tommy Conlon rentre au pays et demande à son père de le préparer pour un tournoi d’arts martiaux mixtes qui lui permettrait de gagner une fortune. Personne ne sait ce qu’il espère faire de cet argent.', 'http://www.gstatic.com/tv/thumb/movieposters/8063104/p8063104_p_v8_ah.jpg', '2011-09-11'),
 (18, 'Us', 116, 'Les Wilson comptaient passer quelques jours dans leur maison sur la plage, mais voilà que des invités indésirables se présentent. Ils constatent rapidement que ces étrangers leur ressemblent et qu’ils sont eux-mêmes leurs pires ennemis.', NULL, '2018-04-10'),
-(19, 'La classe 1B au travail', NULL, 'film fantasque', NULL, NULL);
+(19, 'La classe 1B vient de se mettre au travail', NULL, 'film fantasque', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -55,31 +55,32 @@ INSERT INTO `t_film` (`id_film`, `nom_film`, `duree_film`, `description_film`, `
 
 CREATE TABLE `t_genre` (
   `id_genre` int(11) NOT NULL,
-  `intitule_genre` varchar(50) DEFAULT NULL
+  `intitule_genre` varchar(50) DEFAULT NULL,
+  `date_ins_genre` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `t_genre`
 --
 
-INSERT INTO `t_genre` (`id_genre`, `intitule_genre`) VALUES
-(1, 'action'),
-(15, 'anime'),
-(4, 'aventure'),
-(16, 'cartoon'),
-(3, 'comedie'),
-(10, 'crime'),
-(2, 'drame'),
-(5, 'fantasie'),
-(9, 'historique'),
-(8, 'horreur'),
-(17, 'musical'),
-(12, 'mystere'),
-(13, 'philosophique'),
-(11, 'réalisme'),
-(7, 'romantique'),
-(6, 'science fiction'),
-(14, 'western');
+INSERT INTO `t_genre` (`id_genre`, `intitule_genre`, `date_ins_genre`) VALUES
+(1, 'action', '2021-03-24 16:12:11'),
+(2, 'drame', '2021-03-24 16:12:11'),
+(3, 'comedie', '2021-03-24 16:12:11'),
+(4, 'aventure', '2021-03-24 16:12:11'),
+(5, 'fantasie', '2021-03-24 16:12:11'),
+(6, 'science fiction', '2021-03-24 16:12:11'),
+(7, 'romantique', '2021-03-24 16:12:11'),
+(8, 'horreur', '2021-03-24 16:12:11'),
+(9, 'historique', '2021-03-24 16:12:11'),
+(10, 'crime', '2021-03-24 16:12:11'),
+(11, 'réalisme', '2021-03-24 16:12:11'),
+(12, 'mystere', '2021-03-24 16:12:11'),
+(13, 'philosophique', '2021-03-24 16:12:11'),
+(14, 'western', '2021-03-24 16:12:11'),
+(15, 'anime', '2021-03-24 16:12:11'),
+(16, 'cartoon', '2021-03-24 16:12:11'),
+(17, 'musical', '2021-03-24 16:12:11');
 
 -- --------------------------------------------------------
 
@@ -99,23 +100,23 @@ CREATE TABLE `t_genre_film` (
 --
 
 INSERT INTO `t_genre_film` (`id_genre_film`, `fk_genre`, `fk_film`, `date_insert_genre`) VALUES
-(141, 14, 3, '2020-02-12 21:30:33'),
-(142, 1, 4, '2020-02-12 21:31:31'),
-(143, 4, 4, '2020-02-12 21:31:31'),
-(144, 4, 5, '2020-02-12 21:35:59'),
-(145, 1, 14, '2020-02-12 21:36:57'),
-(146, 16, 3, '2020-02-12 21:38:01'),
-(147, 1, 12, '2020-02-12 21:39:32'),
-(148, 1, 17, '2020-02-12 21:40:44'),
-(149, 4, 17, '2020-02-12 21:41:00'),
-(150, 2, 17, '2020-02-12 21:44:15'),
-(151, 12, 15, '2020-02-12 21:46:21'),
-(152, 1, 15, '2020-02-12 21:46:21'),
-(153, 1, 13, '2020-02-12 21:54:31'),
-(154, 4, 13, '2020-02-12 21:54:31'),
-(155, 9, 12, '2020-02-12 21:55:36'),
-(156, 13, 19, '2020-02-12 21:57:03'),
-(157, 6, 19, '2020-02-12 21:58:03');
+(141, 14, 3, '2020-02-12 20:30:33'),
+(142, 1, 4, '2020-02-12 20:31:31'),
+(143, 4, 4, '2020-02-12 20:31:31'),
+(144, 4, 5, '2020-02-12 20:35:59'),
+(145, 1, 14, '2020-02-12 20:36:57'),
+(146, 16, 3, '2020-02-12 20:38:01'),
+(147, 1, 12, '2020-02-12 20:39:32'),
+(148, 1, 17, '2020-02-12 20:40:44'),
+(149, 4, 17, '2020-02-12 20:41:00'),
+(150, 2, 17, '2020-02-12 20:44:15'),
+(151, 12, 15, '2020-02-12 20:46:21'),
+(152, 1, 15, '2020-02-12 20:46:21'),
+(153, 1, 13, '2020-02-12 20:54:31'),
+(154, 4, 13, '2020-02-12 20:54:31'),
+(155, 9, 12, '2020-02-12 20:55:36'),
+(156, 13, 19, '2020-02-12 20:57:03'),
+(157, 6, 19, '2020-02-12 20:58:03');
 
 --
 -- Index pour les tables exportées
@@ -155,7 +156,7 @@ ALTER TABLE `t_film`
 -- AUTO_INCREMENT pour la table `t_genre`
 --
 ALTER TABLE `t_genre`
-  MODIFY `id_genre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `id_genre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT pour la table `t_genre_film`
 --

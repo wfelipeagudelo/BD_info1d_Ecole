@@ -4,8 +4,9 @@
     Erreurs particulières (personnalisées), qui n'existent que dans mon projet à moi.
     Quand il y a une erreur on doit définir des messages "clairs" sur un affichage à destination des "personnes".
     On ne doit pas les laisser devant des erreurs incompréhensibles.
-    Dérivation des classes standard des "except" dans les blocs "try...except"
+
 """
+from pymysql.constants import ER
 
 msg_erreurs = {
     "ErreurConnexionBD": {
@@ -35,5 +36,23 @@ msg_erreurs = {
     "ErreurDeleteContrainte": {
         "message": "Impossible d'effacer, car cette valeur est référencée ailleurs",
         "status": 400
-    }
+    },
+    "ErreurDeSyntaxeMySql": {
+        "message": "Une erreur de syntaxe en MySql s'est glissée dans les requêtes",
+        "status": 400
+    },
+}
+
+"""
+    Les constantes originales sont définies (dans PyMysql) dans le fichier "ER.py"
+    Répertoire : /venv/Lib/site-packages/pymysql/constants)
+    Il suffit de chercher cd fichier avec PyCharm "CTRL-SHIFT-N" "all places" "ER.py"
+    
+    But : Personnaliser le texte des erreurs originales.
+"""
+error_codes = {
+    ER.DUP_ENTRY: "Ben cette valeur, elle existe déjà.",
+    ER.PARSE_ERROR: "Ooouh là une très vilaine erreur de syntaxe en MySql.",
+    ER.BAD_FIELD_ERROR: "La colonne de la table n'existe pas.",
+    ER.NO_SUCH_TABLE: "La table n'existe pas."
 }

@@ -21,7 +21,6 @@ def mapagepricipale():
     return render_template("home.html")
 
 
-
 @obj_mon_application.route('/essai')
 def route_hommage_a_u_x_V_ictim_es_du_monstre_du_mod_1_0_4():
     return render_template("essai/template_pour_route_essai.html")
@@ -65,7 +64,7 @@ def personnes_taille_dict():
     try:
         # Tout se passe normalement
         print(f'{nom_personne} mesure {taille_personnes_dict[nom_personne]} [cm]')
-    except KeyError as erreur:
+    except KeyError:
         # Une personne ne se trouve pas dans le dictionnaire
         # DEBUG bon marché : Pour afficher un message d'erreur dans la console
         print(f"{nom_personne} n'existe pas !")
@@ -88,6 +87,7 @@ def personnes_taille_dict():
         # Il renvoie un texte avec la valeur de "nom_personne" ainsi qu'un message personnalisé
         # grâce à la classe "MonErreur(Exception)" dans le fichier "exceptions.py"
         raise MonErreur(f"{msg_erreurs['ErreurDictionnaire']['message']} "
-                        f"Le nom : {nom_personne} n'est pas une valeur contenue dans le dictionnaire, pour comprendre, il faut modifier la valeur à la ligne 66 du fichier 'routes_demos.py'")
+                        f"Le nom : {nom_personne} n'est pas une valeur contenue dans le dictionnaire, "
+                        f"pour comprendre, il faut modifier la valeur à la ligne 66 du fichier 'routes_demos.py'")
 
     return render_template("zzz_essais_om_104/exception_raise_custom_om_104.html")

@@ -1,10 +1,42 @@
-Module 104 "Hurlements en Python et FLASK"
+Module 104 Exercice du 2021.04.21
 ---
 
-mes couilles qui sont belles
 
+# Faire fonctionner cette démo :
+##### BUT : CRUD (Create Read Update Delete) complet sur la table "t_genre"
+* Démarrer le serveur MySql (uwamp ou xamp ou mamp, etc)
+* Dans PyCharm, importer la BD grâce à un "run" du fichier "zzzdemos/1_ImportationDumpSql.py".
+  * En cas d'erreurs : ouvrir le fichier ".env" à la racine du projet, contrôler les indications de connexion pour la bd.
+* Puis dans le répertoire racine du projet, ouvrir le fichier "1_run_server_flask.py" et faire un "run".
+  * Indispensable, car la BD à changé depuis le dernier exercice.
+* Choisir le menu "Genres".
+* Tester la fonction "AJOUTER"
+* Tester la fonction "EDIT"
+* Tester la fonction "DELETE"
+* Tester différentes valeurs afin de provoquer des erreurs. (Chiffres, carac. spéciaux par exemple)
+* Dans le menu "Autres démos", choisir "Essai DROPDOWN", tester la fonction de "liste déroulante".
+
+# VOTRE travail pour cet exercice :
+* Avant de débuter CET exercice, soyez certain que vous avez des copies de votre ancien projet.
+* Ne jamais travailler sur l'original, mais bien sur une copie.
+* Avant de commencer CET exercice, votre ancien projet doit être fonctionnel.
+* Comparer votre ancien projet (qui doit fonctionner !!!) avec celui-ci :
+  * Dans PyCharm sélectionner le répertoire RACINE ("2021_MOD_104_OM_PYTHON_MYSQL_FLASK_WTF_3_V1") sur le projet actuel.
+  * Puis "CTRL-D" (Menu "View" >>> "Compare With...") et dans votre ancien projet, sélectionner le répertoire RACINE, puis "OK".
+  * Et la comparaison s’effectue fichier par fichier.
+* Si vous arrivez à afficher votre table, alors vous pouvez commencer l'ADAPTATION du code pour que le bouton "AJOUTER" fonctionne sur votre propre table, ainsi vous allez pouvoir insérer des données dans votre table.
+* Vous devez arriver à implémenter les actions CRUD(Create Read Update Delete) sur vous tables, SAUF les tables intermédiaires (prochain exercice)
+
+## CONSEILS
+* Quand vous changez un nom de variable, testez de suite les conséquences, n'attendez pas.
+  * Mettez un point d'arrêt (point rouge clic à droite du numéro de ligne) et démarrez en mode "DEBUG""
+* Dans PyCharm UTILISEZ TOUT LE TEMPS LE "CTRL SHIFT-F" ET LE "CTRL-SHIFT-R"
+* En cas de message d’erreur copier le texte de la console ou de la page HTML et revenir dans le code, et faites un "CTRL-SHIFT-F"
+* N’hésitez pas à demander de l’aide (moi ou vos "amis" de Discord), ne baissez jamais les bras, cela vous éloooooigne de la galaxie du 6.
+
+## Ci-dessous, l’ancien "readme.md"
 ## Remarque :
-* En classe j'ai montré comment faire le fichier ".env" avec les variables d'environnement. Ce fichier dans les projets en production ne doit pas se trouver dans le cloud (Gitlab).
+* En classe j’ai montré comment faire le fichier ".env" avec les variables d'environnement. Ce fichier dans les projets en production ne doit pas se trouver dans le cloud (Gitlab).
 * Pour ce début de projet et pour me simplifier la correction des 80 projets. Je l'ai laissé dans le git, ainsi vous n'avez rien à faire de particulier, pour que la démo fonctionne.
   * Avec votre version de votre projet vous serez obligé de le modifier. (Nom de la BD par exemple)
 
@@ -35,8 +67,9 @@ mes couilles qui sont belles
   * N'oubliez pas les 3 commandes DROP;CREATE;USE
 * Dans le fichier ".env" changez le nom de la BD par le nom de votre BD (NAME_BD_MYSQL="_____NOM_DE_VOTRE_BD")
 * L'importer grâce au fichier zzzdemos/1_ImportationDumpSql.py
-* Adapter les changements pour qu'UNE seule table de votre projet s'affiche.
+* Adapter les changements pour qu'UNE seule table puisse être 
 * Niveau sup. : Adapter les changements pour que toutes les tables principales de votre projet s'affichent (pas les tables intermédiaires)
+
 
 ### Votre projet sur Gitlab
 * Quel que soit l'état de votre exercice. Vous devez le mettre à ma disposition sur Gitlab comme le premier exercice.

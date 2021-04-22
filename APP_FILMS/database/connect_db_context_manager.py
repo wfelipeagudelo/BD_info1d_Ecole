@@ -12,14 +12,15 @@
     https://dev.mysql.com/downloads/connector/python/
 
 """
+import pymysql
 from flask import flash
 from pymysql.constants import CLIENT
 
 from APP_FILMS import HOST_MYSQL
 from APP_FILMS import NAME_BD_MYSQL
 from APP_FILMS import PASS_MYSQL
-from APP_FILMS import USER_MYSQL
 from APP_FILMS import PORT_MYSQL
+from APP_FILMS import USER_MYSQL
 from APP_FILMS.erreurs import msg_erreurs
 from APP_FILMS.erreurs.exceptions import *
 
@@ -69,7 +70,7 @@ class MaBaseDeDonnee():
 
     def __exit__(self, exc_type, exc_val, traceback):
         # La valeur des paramètres est "None" si tout s'est bien déroulé.
-        print("exc_val ", exc_val)
+        print("exc_val ", exc_type, exc_val, traceback)
         """
             Si la sortie se passe bien ==> commit. Si exception ==> rollback
             
@@ -88,10 +89,10 @@ class MaBaseDeDonnee():
         print("La BD est FERMÉE !! Dans le destructeur")
 
     """
-        Cette méthode est définie pour utiliser les "context manager"
-        Une fois l'interprétation de cette méthode terminée
+        Les méthodes suivantes sont définies pour utiliser les "context manager"
+        Une fois que l'interprétation de l'un ou l'autre de ces méthodes est terminée
         le destructeur "__exit__" sera automatiquement interprété.
-        ainsi après avoir exécuté la requête MySql on va faire un commit (enregistrer les modifications)
+        Ainsi après avoir exécuté la requête MySql on va faire un commit (enregistrer les modifications)
         s'il n'y a pas erreur ou un rollback (retour en arrière) en cas d'erreur
         et finalement fermer la connexion à la BD.
     """
@@ -100,6 +101,5 @@ class MaBaseDeDonnee():
         print("execute", sql, " params", params)
         return self.connexion_bd.cursor().execute(sql, params or ())
 
-    # OM 2020.04.10 Cette méthode est définie pour utiliser les "context manager"
     def mabd_fetchall(self):
         return self.connexion_bd.cursor().fetchall()

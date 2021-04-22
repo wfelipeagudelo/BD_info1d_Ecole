@@ -7,6 +7,7 @@
     Connection à la base de données.
     Nécessite un fichier de configuration externe : /.env
 """
+import sys
 
 from flask import flash
 from flask import render_template
@@ -36,7 +37,9 @@ def page_not_found(e):
 
 @obj_mon_application.errorhandler(Exception)
 def om_104_exception_handler(error):
-    flash(error, "danger")
+    flash(f"Erreur : {error} {error.args[0]} {sys.exc_info()[0]}", "danger")
+    a, b, c = sys.exc_info()
+    flash(f"Erreur générale : {a} {b} {c}", "danger")
     return render_template("home.html")
 
 

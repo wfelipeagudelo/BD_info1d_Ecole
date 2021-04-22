@@ -6,16 +6,11 @@
     On ne doit pas les laisser devant des erreurs incompréhensibles.
     Dérivation des classes standard des "except" dans les blocs "try...except"
 """
-import pymysql
+from pymysql import IntegrityError
 
 
 class ErreurFichierSqlDump(Exception):
     """Erreur qui doit être affichée lorsque le fichier DUMP à un problème"""
-    pass
-
-
-class ErreurFichierConfig(Exception):
-    """Erreur qui doit être affichée lorsque le fichier de configuration ".env" à un problème"""
     pass
 
 
@@ -34,13 +29,16 @@ class ErreurExtractNameBD(Exception):
     pass
 
 
+class MaBdErreurDoublon(IntegrityError):
+    """Erreur qui doit être affichée lorsqu'une valeur en "double" (doublon) veut être insérée dans une table"""
+    pass
+
+
 class MonErreur(Exception):
+    """Erreur qui doit être affichée lors d'une expérience avec du code à OM de la 707"""
     pass
 
 
 class MaBdErreurConnexion(Exception):
-    pass
-
-
-class MaBdErreurPyMySl(pymysql.Error):
+    """Erreur qui doit être affichée lorsque la connection à la BD à des problèmes"""
     pass
