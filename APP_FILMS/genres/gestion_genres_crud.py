@@ -41,7 +41,7 @@ def genres_afficher(order_by, id_genre_sel):
                 # Renvoie une erreur si la connexion est perdue.
                 MaBaseDeDonnee().connexion_bd.ping(False)
             except Exception as erreur:
-                flash(f"Dans Gestion genres ...terrible erreur, il faut connecter une base de donnée", "danger")
+                flash(f"Il faut connecter une base de donnée", "danger")
                 print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
                 raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
@@ -69,14 +69,14 @@ def genres_afficher(order_by, id_genre_sel):
 
                 # Différencier les messages si la table est vide.
                 if not data_genres and id_genre_sel == 0:
-                    flash("""La table "t_genre" est vide. !!""", "warning")
+                    flash("""La table "t_personne" est vide. !!""", "warning")
                 elif not data_genres and id_genre_sel > 0:
                     # Si l'utilisateur change l'id_genre dans l'URL et que le genre n'existe pas,
-                    flash(f"Le genre demandé n'existe pas !!", "warning")
+                    flash(f"La personne demandé n'existe pas !!", "warning")
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données genres affichés !!", "success")
+                    flash(f"Données des personnes affichés !!", "success")
 
         except Exception as erreur:
             print(f"RGG Erreur générale. genres_afficher")
@@ -120,7 +120,7 @@ def genres_ajouter_wtf():
                 # Renvoie une erreur si la connexion est perdue.
                 MaBaseDeDonnee().connexion_bd.ping(False)
             except Exception as erreur:
-                flash(f"Dans Gestion genres ...terrible erreur, il faut connecter une base de donnée", "danger")
+                flash(f"Il faut connecter une base de donnée", "danger")
                 print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
                 raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
@@ -304,8 +304,8 @@ def genre_delete_wtf():
                     mconn_bd.mabd_execute(str_sql_delete_films_genre, valeur_delete_dictionnaire)
                     mconn_bd.mabd_execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
 
-                flash(f"Genre définitivement effacé !!", "success")
-                print(f"Genre définitivement effacé !!")
+                flash(f"Personne effacé !!", "success")
+                print(f"Personne effacé !!")
 
                 # afficher les données
                 return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=0))
