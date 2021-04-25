@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Afficher GENRES {% endblock %}
+{% block title %} Afficher les personnes sur la BD {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Genres à disposition.
+				Personnes sur la BD
 			</p>
             <table class="table table-bordered table-sm">
             {% if data %}
@@ -54,7 +54,7 @@
 				<tbody>
 					<tr>
 						<td>
-							Aucun genre.
+							Aucune personne sur la BD
 						</td>
 						<td>
 							<a class="btn btn-primary" href="{{ url_for('genres_ajouter_wtf') }}" role="button">Ajouter</a>
