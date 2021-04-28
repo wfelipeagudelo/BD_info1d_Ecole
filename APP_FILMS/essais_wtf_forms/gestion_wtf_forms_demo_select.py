@@ -1,5 +1,5 @@
 """
-    Fichier : gestion_genres_crud.py
+    Fichier : gestion_mail_crud.py
     Auteur : OM 2021.03.16
     Gestions des "routes" FLASK et des données pour les genres.
 """
@@ -24,9 +24,9 @@ from APP_FILMS.essais_wtf_forms.wtf_forms_demo_select import DemoFormSelectWTF
     
     Paramètres : sans
     
-    But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "genres_afficher.html"
+    But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "mail_afficher.html"
     
-    Remarque :  Dans le champ "nom_genre_delete_wtf" du formulaire "genres/genre_delete_wtf.html",
+    Remarque :  Dans le champ "nom_genre_delete_wtf" du formulaire "genres/mail_delete_wtf.html",
                 le contrôle de la saisie est désactivée. On doit simplement cliquer sur "DELETE"
 """
 

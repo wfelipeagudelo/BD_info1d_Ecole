@@ -10,30 +10,29 @@ from wtforms.validators import Length
 from wtforms.validators import Regexp
 
 
-class FormWTFAjouterGenres(FlaskForm):
+class FormWTFAjouterMails(FlaskForm):
     """
         Dans le formulaire "mail_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_genre_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_genre_wtf = StringField("Entrer la personne ", validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                                   Regexp(nom_genre_regexp,
-                                                                          message="Pas de chiffres, de caractères "
-                                                                                  "spéciaux, "
+    nom_mail_regexp = "^[^@]+@[^@]+\.[^@]+"
+    nom_genre_wtf = StringField("Entrer le mail ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                   Regexp(nom_mail_regexp,
+                                                                          message="Vous devez écrire le mail avec cette forme: utilisateur@domaine.com, "
                                                                                   "d'espace à double, de double "
                                                                                   "apostrophe, de double trait union")
                                                                    ])
     submit = SubmitField("Enregistrer la personne")
 
 
-class FormWTFUpdateGenre(FlaskForm):
+class FormWTFUpdateMail(FlaskForm):
     """
         Dans le formulaire "mail_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_genre_update_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_genre_update_wtf = StringField("Entrer la personne ", validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                                          Regexp(nom_genre_update_regexp,
+    nom_mail_update_regexp = "^[^@]+@[^@]+\.[^@]+"
+    nom_genre_update_wtf = StringField("Entrer le mail ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                          Regexp(nom_mail_update_regexp,
                                                                                  message="Pas de chiffres, de "
                                                                                          "caractères "
                                                                                          "spéciaux, "
@@ -41,10 +40,10 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                          "apostrophe, de double trait "
                                                                                          "union")
                                                                           ])
-    submit = SubmitField("Update personne")
+    submit = SubmitField("Update mail")
 
 
-class FormWTFDeleteGenre(FlaskForm):
+class FormWTFDeleteMail(FlaskForm):
     """
         Dans le formulaire "mail_delete_wtf.html"
 
@@ -53,7 +52,7 @@ class FormWTFDeleteGenre(FlaskForm):
         submit_btn_conf_del : Bouton de confirmation pour effacer un "genre".
         submit_btn_annuler : Bouton qui permet d'afficher la table "t_genre".
     """
-    nom_genre_delete_wtf = StringField("Effacer la personne")
-    submit_btn_del = SubmitField("Effacer Personne")
+    nom_genre_delete_wtf = StringField("Effacer le mail")
+    submit_btn_del = SubmitField("Effacer Mail")
     submit_btn_conf_del = SubmitField("Etes-vous sur d'effacer ?")
     submit_btn_annuler = SubmitField("Annuler")

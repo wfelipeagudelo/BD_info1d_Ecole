@@ -34,19 +34,19 @@
 				<tbody>
 					<tr>
 						<td class="align-middle">
-							{{ row.id_personne }}
+							{{ row.id_mail }}
 						</td>
 						<td class="align-middle">
-							{{ row.nom_pers }}
+							{{ row.mail }}
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-primary" href="{{ url_for('personne_ajouter') }}" role="button">Ajouter</a>
+							<a class="btn btn-primary" href="{{ url_for('mail_ajouter') }}" role="button">Ajouter</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('personne_update', id_personne_btn_edit_html=row.id_personne) }}" role="button">Edit</a>
+							<a class="btn btn-warning" href="{{ url_for('mail_update', id_mail_btn_edit_html=row.id_mail) }}" role="button">Edit</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-danger" href="{{ url_for('personne_delete', id_personne_btn_delete_html=row.id_personne) }}" role="button">Delete</a>
+							<a class="btn btn-danger" href="{{ url_for('mail_delete', id_mail_btn_delete_html=row.id_mail) }}" role="button">Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -54,10 +54,10 @@
 				<tbody>
 					<tr>
 						<td>
-							Aucune personne sur la BD
+							Aucun mail sur la BD
 						</td>
 						<td>
-							<a class="btn btn-primary" href="{{ url_for('personne_ajouter') }}" role="button">Ajouter</a>
+							<a class="btn btn-primary" href="{{ url_for('mail_ajouter') }}" role="button">Ajouter</a>
 						</td>
 					</tr>
 				</tbody>

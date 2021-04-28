@@ -42,8 +42,10 @@
 			<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<!--		Afficher la liste des genres dans l'ordre (ASC) et tous les genres (0)-->
-						<a class="nav-link" href="{{ url_for('genres_afficher', order_by='ASC', id_genre_sel=0) }}">Personnes</a>
+						<a class="nav-link" href="{{ url_for('personne_afficher', order_by='ASC', id_genre_sel=0) }}">Personnes</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{{ url_for('mail_afficher', order_by='ASC', id_genre_sel=0) }}">Mail</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{{ url_for('personnes_taille_dict') }}">Démo "TAILLE"</a>
