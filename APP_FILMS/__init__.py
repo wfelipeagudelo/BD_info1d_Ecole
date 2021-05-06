@@ -83,4 +83,5 @@ from APP_FILMS.essais_wtf_forms import gestion_essai_wtf
 from APP_FILMS.essais_wtf_forms import gestion_wtf_forms_demo_select
 from APP_FILMS.genres import gestion_genres_crud
 from APP_FILMS.mail import gestion_mail_crud
+from APP_FILMS.telephone import gestion_tel_crud
 from APP_FILMS.zzzdemos import routes_demos
