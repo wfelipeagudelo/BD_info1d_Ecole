@@ -188,6 +188,7 @@ def tel_update():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
     id_genre_update = request.values['id_telephone_btn_edit_html']
 
+    print("test"+id_genre_update)
     # Objet formulaire pour l'UPDATE
     form_update = FormWTFUpdateTelephone()
     try:
