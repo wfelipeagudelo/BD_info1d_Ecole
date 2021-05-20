@@ -10,29 +10,30 @@ from wtforms.validators import Length
 from wtforms.validators import Regexp
 
 
-class FormWTFAjouterTelephone(FlaskForm):
+class FormWTFAjouterGenres(FlaskForm):
     """
         Dans le formulaire "mail_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_num_regexp = "[!0-9]"
-    nom_num_wtf = StringField("Entrer le numéro ", validators=[Length(min=2, max=21, message="min 2 max 20"),
-                                                                   Regexp(nom_num_regexp,
-                                                                          message="Vous devez écrire le numéro avec cette forme: 07x xxx xx xx, "
+    nom_genre_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_genre_wtf = StringField("Entrer la personne ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                   Regexp(nom_genre_regexp,
+                                                                          message="Pas de chiffres, de caractères "
+                                                                                  "spéciaux, "
                                                                                   "d'espace à double, de double "
                                                                                   "apostrophe, de double trait union")
                                                                    ])
-    submit = SubmitField("Enregistrer le numéro")
+    submit = SubmitField("Enregistrer la personne")
 
 
-class FormWTFUpdateTelephone(FlaskForm):
+class FormWTFUpdateGenre(FlaskForm):
     """
         Dans le formulaire "mail_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_num_update_regexp = "[!0-9]"
-    nom_genre_update_wtf = StringField("Entrer le numéro ", validators=[Length(min=2, max=10, message="min 2 max 20"),
-                                                                          Regexp(nom_num_update_regexp,
+    nom_genre_update_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_genre_update_wtf = StringField("Entrer la personne ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                          Regexp(nom_genre_update_regexp,
                                                                                  message="Pas de chiffres, de "
                                                                                          "caractères "
                                                                                          "spéciaux, "
@@ -40,10 +41,10 @@ class FormWTFUpdateTelephone(FlaskForm):
                                                                                          "apostrophe, de double trait "
                                                                                          "union")
                                                                           ])
-    submit = SubmitField("Update numéro")
+    submit = SubmitField("Update personne")
 
 
-class FormWTFDeleteTelephone(FlaskForm):
+class FormWTFDeleteGenre(FlaskForm):
     """
         Dans le formulaire "mail_delete_wtf.html"
 
@@ -52,7 +53,7 @@ class FormWTFDeleteTelephone(FlaskForm):
         submit_btn_conf_del : Bouton de confirmation pour effacer un "genre".
         submit_btn_annuler : Bouton qui permet d'afficher la table "t_genre".
     """
-    nom_genre_delete_wtf = StringField("Effacer le numéro")
-    submit_btn_del = SubmitField("Effacer numéro")
+    nom_genre_delete_wtf = StringField("Effacer la personne")
+    submit_btn_del = SubmitField("Effacer Personne")
     submit_btn_conf_del = SubmitField("Etes-vous sur d'effacer ?")
     submit_btn_annuler = SubmitField("Annuler")

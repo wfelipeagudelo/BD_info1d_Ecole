@@ -1,20 +1,20 @@
 {% extends "base.html" %}
-{% block title %} Ajouter un numéro de téléphone {% endblock %}
+{% block title %} Ajouter une personne {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Ajouter un nouveaux numéro de téléphone (WTForms)
+				Ajouter une nouvelle personne (WTForms)
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
 				{{ form.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form.nom_num_wtf.label }}<br>
-						{{ form.nom_num_wtf(size=32) }}<br>
-						{% for error in form.nom_num_wtf.errors %}
+						{{ form.nom_genre_wtf.label }}<br>
+						{{ form.nom_genre_wtf(size=32) }}<br>
+						{% for error in form.nom_genre_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
