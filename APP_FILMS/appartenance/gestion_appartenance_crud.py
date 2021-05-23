@@ -17,9 +17,9 @@ from APP_FILMS import obj_mon_application
 from APP_FILMS.database.connect_db_context_manager import MaBaseDeDonnee
 from APP_FILMS.erreurs.exceptions import *
 from APP_FILMS.erreurs.msg_erreurs import *
-from APP_FILMS.genres.gestion_genres_wtf_forms import FormWTFAjouterGenres
-from APP_FILMS.genres.gestion_genres_wtf_forms import FormWTFDeleteGenre
-from APP_FILMS.genres.gestion_genres_wtf_forms import FormWTFUpdateGenre
+from APP_FILMS.appartenance.gestion_appartenance_wtf_forms import FormWTFAjouterAppartenance
+from APP_FILMS.appartenance.gestion_appartenance_wtf_forms import FormWTFUpdateAppartenance
+from APP_FILMS.appartenance.gestion_appartenance_wtf_forms import FormWTFDeleteAppartenance
 
 """
     Auteur : OM 2021.03.16
@@ -47,7 +47,7 @@ def appartenance_afficher(order_by, id_genre_sel):
 
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 if order_by == "ASC" and id_genre_sel == 0:
-                    strsql_genres_afficher = """SELECT id_personne, nom_pers FROM t_personne ORDER BY id_personne ASC"""
+                    strsql_genres_afficher = """SELECT id_appartenancce, appartenance FROM t_appartenance ORDER BY id_appartenancce ASC"""
                     mc_afficher.execute(strsql_genres_afficher)
                 elif order_by == "ASC":
                     # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
@@ -55,11 +55,11 @@ def appartenance_afficher(order_by, id_genre_sel):
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
-                    strsql_genres_afficher = f"""SELECT id_personne, nom_pers FROM t_personne  WHERE id_personne = '{id_genre_sel}'"""
+                    strsql_genres_afficher = f"""SELECT id_appartenancce, appartenance FROM t_appartenance  WHERE id_appartenancce = '{id_genre_sel}'"""
 
                     mc_afficher.execute(strsql_genres_afficher)
                 else:
-                    strsql_genres_afficher = """SELECT id_personne, nom_pers FROM t_personne ORDER BY id_personne DESC"""
+                    strsql_genres_afficher = """SELECT id_appartenancce, appartenance FROM t_appartenance ORDER BY id_appartenancce DESC"""
 
                     mc_afficher.execute(strsql_genres_afficher)
 
@@ -69,14 +69,14 @@ def appartenance_afficher(order_by, id_genre_sel):
 
                 # Différencier les messages si la table est vide.
                 if not data_genres and id_genre_sel == 0:
-                    flash("""La table "t_personne" est vide. !!""", "warning")
+                    flash("""La table "t_appartenance" est vide. !!""", "warning")
                 elif not data_genres and id_genre_sel > 0:
                     # Si l'utilisateur change l'id_genre dans l'URL et que le genre n'existe pas,
-                    flash(f"La personne demandé n'existe pas !!", "warning")
+                    flash(f"L'appartenance demandé n'existe pas !!", "warning")
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données des personnes affichés !!", "success")
+                    flash(f"Données des appartenances affichés !!", "success")
 
         except Exception as erreur:
             print(f"RGG Erreur générale. personne_afficher")
@@ -88,7 +88,7 @@ def appartenance_afficher(order_by, id_genre_sel):
             # raise MaBdErreurOperation(f"RGG Exception {msg_erreurs['ErreurNomBD']['message']} {erreur}")
 
     # Envoie la page "HTML" au serveur.
-    return render_template("genres/genres_afficher.html", data=data_genres)
+    return render_template("appartenance/appartenance_afficher.html", data=data_genres)
 
 
 """
@@ -111,9 +111,9 @@ def appartenance_afficher(order_by, id_genre_sel):
 """
 
 
-@obj_mon_application.route("/personne_ajouter", methods=['GET', 'POST'])
-def personne_ajouter():
-    form = FormWTFAjouterGenres()
+@obj_mon_application.route("/appartenance_ajouter", methods=['GET', 'POST'])
+def appartenance_ajouter():
+    form = FormWTFAjouterAppartenance()
     if request.method == "POST":
         try:
             try:
@@ -131,7 +131,7 @@ def personne_ajouter():
                 valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_personne (nom_pers) VALUES (%(value_intitule_genre)s)"""
+                strsql_insert_genre = """INSERT INTO t_appartenance (appartenance) VALUES (%(value_intitule_genre)s)"""
                 with MaBaseDeDonnee() as mconn_bd:
                     mconn_bd.mabd_execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
@@ -139,7 +139,7 @@ def personne_ajouter():
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
-                return redirect(url_for('personne_afficher', order_by='DESC', id_genre_sel=0))
+                return redirect(url_for('appartenance_afficher', order_by='DESC', id_genre_sel=0))
 
         # ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
         except pymysql.err.IntegrityError as erreur_genre_doublon:
@@ -161,7 +161,7 @@ def personne_ajouter():
                   f"{erreur_gest_genr_crud.args[0]} , "
                   f"{erreur_gest_genr_crud}", "danger")
 
-    return render_template("genres/genres_ajouter_wtf.html", form=form)
+    return render_template("appartenance/appartenance_ajouter_wtf.html", form=form)
 
 
 """
@@ -184,15 +184,15 @@ def personne_ajouter():
 """
 
 
-@obj_mon_application.route("/personne_update", methods=['GET', 'POST'])
-def personne_update():
+@obj_mon_application.route("/appartenance_update", methods=['GET', 'POST'])
+def appartenance_update():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
     id_genre_update = request.values['id_personne_btn_edit_html']
     print("id_genre_update")
     print(id_genre_update)
 
     # Objet formulaire pour l'UPDATE
-    form_update = FormWTFUpdateGenre()
+    form_update = FormWTFUpdateAppartenance()
     try:
         print(" on submit ", form_update.validate_on_submit())
         if form_update.validate_on_submit():
@@ -201,11 +201,11 @@ def personne_update():
             name_genre_update = form_update.nom_genre_update_wtf.data
             name_genre_update = name_genre_update.lower()
 
-            valeur_update_dictionnaire = {"value_id_personne": id_genre_update,
+            valeur_update_dictionnaire = {"value_id_appartenance": id_genre_update,
                                           "value_personne_genre": name_genre_update}
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_personne SET nom_pers = %(value_personne_genre)s WHERE id_personne = %(value_id_personne)s"""
+            str_sql_update_intitulegenre = """UPDATE t_appartenance SET appartenance = %(value_personne_genre)s WHERE id_appartenancce = %(value_id_personne)s"""
             with MaBaseDeDonnee() as mconn_bd:
                 mconn_bd.mabd_execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
 
@@ -214,20 +214,20 @@ def personne_update():
 
             # afficher et constater que la donnée est mise à jour.
             # Affiche seulement la valeur modifiée, "ASC" et l'"id_genre_update"
-            return redirect(url_for('personne_afficher', order_by="ASC", id_genre_sel=id_genre_update))
+            return redirect(url_for('appartenance_afficher', order_by="ASC", id_genre_sel=id_genre_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT id_personne, nom_pers FROM t_personne WHERE id_personne = %(value_id_personne)s"
-            valeur_select_dictionnaire = {"value_id_personne": id_genre_update}
+            str_sql_id_genre = "SELECT id_appartenancce, appartenance FROM t_appartenance WHERE id_appartenancce = %(value_id_personne)s"
+            valeur_select_dictionnaire = {"value_id_appartenance": id_genre_update}
             mybd_curseur = MaBaseDeDonnee().connexion_bd.cursor()
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)
-            # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
+            # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "appartenance" pour l'UPDATE
             data_nom_genre = mybd_curseur.fetchone()
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["nom_pers"])
+                  data_nom_genre["appartenance"])
 
-            # Afficher la valeur sélectionnée dans le champ du formulaire "mail_update_wtf.html"
-            form_update.nom_genre_update_wtf.data = data_nom_genre["nom_pers"]
+            # Afficher la valeur sélectionnée dans le champ du formulaire "appartenance_update_wtf.html"
+            form_update.nom_genre_update_wtf.data = data_nom_genre["appartenance"]
 
     # OM 2020.04.16 ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
     except KeyError:
@@ -248,7 +248,7 @@ def personne_update():
         flash(f"__KeyError dans genre_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
 
-    return render_template("genres/genre_update_wtf.html", form_update=form_update)
+    return render_template("appartenance/appartenance_update_wtf.html", form_update=form_update)
 
 
 """
@@ -266,21 +266,21 @@ def personne_update():
 """
 
 
-@obj_mon_application.route("/personne_delete", methods=['GET', 'POST'])
-def personne_delete():
+@obj_mon_application.route("/appartenance_delete", methods=['GET', 'POST'])
+def appartenance_delete():
     data_films_attribue_genre_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_genre"
-    id_genre_delete = request.values['id_personne_btn_delete_html']
+    id_genre_delete = request.values['id_appartenance_btn_delete_html']
 
     # Objet formulaire pour effacer le genre sélectionné.
-    form_delete = FormWTFDeleteGenre()
+    form_delete = FormWTFDeleteAppartenance()
     try:
         print(" on submit ", form_delete.validate_on_submit())
         if request.method == "POST" and form_delete.validate_on_submit():
 
             if form_delete.submit_btn_annuler.data:
-                return redirect(url_for("personne_afficher", order_by="ASC", id_genre_sel=0))
+                return redirect(url_for("appartenance_afficher", order_by="ASC", id_genre_sel=0))
 
             if form_delete.submit_btn_conf_del.data:
                 # Récupère les données afin d'afficher à nouveau
@@ -297,8 +297,8 @@ def personne_delete():
                 valeur_delete_dictionnaire = {"value_id_genre": id_genre_delete}
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-                str_sql_delete_films_genre = """DELETE FROM t_pers_appartenance WHERE fk_personne = %(value_id_genre)s"""
-                str_sql_delete_idgenre = """DELETE FROM t_personne WHERE id_personne = %(value_id_genre)s"""
+                str_sql_delete_films_genre = """DELETE FROM t_pers_appartenance WHERE fk_appartenance = %(value_id_genre)s"""
+                str_sql_delete_idgenre = """DELETE FROM t_appartenance WHERE id_appartenancce = %(value_id_genre)s"""
                 # Manière brutale d'effacer d'abord la "fk_genre", même si elle n'existe pas dans la "t_genre_film"
                 # Ensuite on peut effacer le genre vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
                 with MaBaseDeDonnee() as mconn_bd:
@@ -309,7 +309,7 @@ def personne_delete():
                 print(f"Personne effacé !!")
 
                 # afficher les données
-                return redirect(url_for('personne_afficher', order_by="ASC", id_genre_sel=0))
+                return redirect(url_for('appartenance_afficher', order_by="ASC", id_genre_sel=0))
 
         if request.method == "GET":
             valeur_select_dictionnaire = {"value_id_genre": id_genre_delete}
@@ -319,7 +319,7 @@ def personne_delete():
             str_sql_genres_films_delete = """SELECT id_pers_appartenance, nom_pers, id_personne, appartenance FROM t_pers_appartenance 
                                             INNER JOIN t_appartenance ON t_appartenance.id_appartenancce = t_pers_appartenance.fk_appartenance
                                             INNER JOIN t_personne ON t_personne.id_personne = t_pers_appartenance.fk_personne
-                                            WHERE fk_personne = %(value_id_genre)s"""
+                                            WHERE fk_appartenance = %(value_id_genre)s"""
 
             mybd_curseur = MaBaseDeDonnee().connexion_bd.cursor()
 
@@ -332,7 +332,7 @@ def personne_delete():
             session['data_films_attribue_genre_delete'] = data_films_attribue_genre_delete
 
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT id_personne, nom_pers FROM t_personne WHERE id_personne = %(value_id_genre)s"
+            str_sql_id_genre = "SELECT id_appartenancce, appartenance FROM t_appartenance WHERE id_appartenancce = %(value_id_genre)s"
 
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()",
@@ -340,10 +340,10 @@ def personne_delete():
             data_nom_genre = mybd_curseur.fetchone()
 
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["nom_pers"])
+                  data_nom_genre["appartenance"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "mail_delete_wtf.html"
-            form_delete.nom_genre_delete_wtf.data = data_nom_genre["nom_pers"]
+            form_delete.nom_genre_delete_wtf.data = data_nom_genre["appartenance"]
 
             # Le bouton pour l'action "DELETE" dans le form. "mail_delete_wtf.html" est caché.
             btn_submit_del = False
@@ -369,7 +369,7 @@ def personne_delete():
         flash(f"__KeyError dans genre_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
 
-    return render_template("genres/genre_delete_wtf.html",
+    return render_template("appartenance/appartenance_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
                            data_films_associes=data_films_attribue_genre_delete)

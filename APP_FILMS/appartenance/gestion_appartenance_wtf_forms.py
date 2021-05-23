@@ -1,7 +1,6 @@
 """
-    Fichier : gestion_mail_wtf_forms.py
-    Auteur : OM 2021.03.22
-    Gestion des formulaires avec WTF
+    Fichier : appartenance_mail_wtf_forms.py
+    Auteur : DeadWay, merci M. Maccaud
 """
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -10,29 +9,29 @@ from wtforms.validators import Length
 from wtforms.validators import Regexp
 
 
-class FormWTFAjouterGenres(FlaskForm):
+class FormWTFAjouterAppartenance(FlaskForm):
     """
-        Dans le formulaire "mail_ajouter_wtf.html" on impose que le champ soit rempli.
+        Dans le formulaire "appartenance_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_genre_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_genre_wtf = StringField("Entrer la personne ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_genre_wtf = StringField("Entrer l'appartenance ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                    Regexp(nom_genre_regexp,
                                                                           message="Pas de chiffres, de caractères "
                                                                                   "spéciaux, "
                                                                                   "d'espace à double, de double "
                                                                                   "apostrophe, de double trait union")
                                                                    ])
-    submit = SubmitField("Enregistrer la personne")
+    submit = SubmitField("Enregistrer l'appartenance")
 
 
-class FormWTFUpdateGenre(FlaskForm):
+class FormWTFUpdateAppartenance(FlaskForm):
     """
-        Dans le formulaire "mail_update_wtf.html" on impose que le champ soit rempli.
+        Dans le formulaire "appartenance_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_genre_update_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_genre_update_wtf = StringField("Entrer la personne ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_genre_update_wtf = StringField("Entrer l'appartenance ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                           Regexp(nom_genre_update_regexp,
                                                                                  message="Pas de chiffres, de "
                                                                                          "caractères "
@@ -41,12 +40,12 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                          "apostrophe, de double trait "
                                                                                          "union")
                                                                           ])
-    submit = SubmitField("Update personne")
+    submit = SubmitField("Update appartenance")
 
 
-class FormWTFDeleteGenre(FlaskForm):
+class FormWTFDeleteAppartenance(FlaskForm):
     """
-        Dans le formulaire "mail_delete_wtf.html"
+        Dans le formulaire "appartenance_delete_wtf.html"
 
         nom_genre_delete_wtf : Champ qui reçoit la valeur du genre, lecture seule. (readonly=true)
         submit_btn_del : Bouton d'effacement "DEFINITIF".
