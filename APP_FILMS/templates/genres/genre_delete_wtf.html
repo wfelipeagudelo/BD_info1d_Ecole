@@ -1,61 +1,79 @@
 {% extends "base.html" %}
 {% block title %} Effacer une personne {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Effacer une personne
-			</p>
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_delete.hidden_tag() }}
-				<table class="table table-bordered table-sm">
-					{% if data_films_associes %}
-						<h3>Cette personne est associé avec le(s) apparence(s) suivant(s) :</h3>
-					{% else %}
-						<h3>Cette personne n'est associé à aucune apparence.</h3>
-					{% endif %}
-					{% if data_films_associes %}
-						<thead>
-							<tr>
-								<th>
-									FILM(S)
-								</th>
-							</tr>
-						</thead>
-						{% for row in data_films_associes %}
-							<tbody>
-								<tr>
-									<td>
-										{{ row.appartenance }}
-									</td>
-								</tr>
-							</tbody>
-						{% endfor %}
-					{% endif %}
-				</table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Effacer une personne
+                </p>
+                <form action="" method="POST" novalidate>
+                    <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                    {{ form_delete.hidden_tag() }}
+                    <table class="table table-bordered table-sm">
+                        {% if data_films_associes %}
+                            <h3>Cette personne est associé avec le(s) apparence(s) suivant(s) :</h3>
+                        {% else %}
+                            <h3>Cette personne n'est associé à aucune apparence.</h3>
+                        {% endif %}
+                        {% if data_films_associes %}
+                            <thead>
+                            <tr>
+                                <th>
+                                    Personnes(S)
+                                </th>
+                            </tr>
+                            </thead>
+                            {% for row in data_films_associes %}
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        {{ row.appartenance }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+                        {% endif %}
+                    </table>
 
 
-				<div class="form-group">
-					<p>
-						{{ form_delete.nom_genre_delete_wtf.label }}<br>
-						{{ form_delete.nom_genre_delete_wtf(size=32, readonly=true) }}<br>
-						{% for error in form_delete.nom_genre_delete_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-				</div>
-				{{ form_delete.submit_btn_conf_del(class="btn btn-info") }}
+                    <div class="form-group">
+                        <p>
+                            {{ form_delete.nom_genre_delete_wtf.label }}<br>
+                            {{ form_delete.nom_genre_delete_wtf(size=32, readonly=true) }}<br>
+                            {% for error in form_delete.nom_genre_delete_wtf.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            {{ form_delete.prenom_delete_wtf.label }}<br>
+                            {{ form_delete.prenom_delete_wtf(size=32, readonly=true) }}<br>
+                            {% for error in form_delete.prenom_delete_wtf.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            {{ form_delete.data_delete_wtf.label }}<br>
+                            {{ form_delete.data_delete_wtf(size=32, readonly=true) }}<br>
+                            {% for error in form_delete.data_delete_wtf.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    {{ form_delete.submit_btn_conf_del(class="btn btn-info") }}
 
-				{% if btn_submit_del %}
-					{{ form_delete.submit_btn_del(class="btn btn-danger") }}
-				{% endif %}
+                    {% if btn_submit_del %}
+                        {{ form_delete.submit_btn_del(class="btn btn-danger") }}
+                    {% endif %}
 
-				{{ form_delete.submit_btn_annuler(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
-</div>
+                    {{ form_delete.submit_btn_annuler(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 

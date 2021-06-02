@@ -47,7 +47,7 @@ def personne_afficher(order_by, id_genre_sel):
 
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 if order_by == "ASC" and id_genre_sel == 0:
-                    strsql_genres_afficher = """SELECT id_personne, nom_pers FROM t_personne ORDER BY id_personne ASC"""
+                    strsql_genres_afficher = """SELECT * FROM t_personne ORDER BY id_personne ASC"""
                     mc_afficher.execute(strsql_genres_afficher)
                 elif order_by == "ASC":
                     # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
@@ -55,11 +55,11 @@ def personne_afficher(order_by, id_genre_sel):
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
-                    strsql_genres_afficher = f"""SELECT id_personne, nom_pers FROM t_personne  WHERE id_personne = '{id_genre_sel}'"""
+                    strsql_genres_afficher = f"""SELECT * FROM t_personne  WHERE id_personne = '{id_genre_sel}'"""
 
                     mc_afficher.execute(strsql_genres_afficher)
                 else:
-                    strsql_genres_afficher = """SELECT id_personne, nom_pers FROM t_personne ORDER BY id_personne DESC"""
+                    strsql_genres_afficher = """SELECT * FROM t_personne ORDER BY id_personne DESC"""
 
                     mc_afficher.execute(strsql_genres_afficher)
 
@@ -125,13 +125,15 @@ def personne_ajouter():
                 raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
             if form.validate_on_submit():
-                name_genre_wtf = form.nom_genre_wtf.data
+                nom_wtf = form.nom_genre_update_wtf.data
+                prenom_wtf = form.prenom_wtf.data
+                date_wtf = form.date_wtf.data
 
-                name_genre = name_genre_wtf.lower()
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
+                valeurs_insertion_dictionnaire = {"value_name": nom_wtf, "value_prenom": prenom_wtf, "value_date": date_wtf}
+
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_personne (nom_pers) VALUES (%(value_intitule_genre)s)"""
+                strsql_insert_genre = """INSERT INTO t_personne (nom_pers, prenom_pers, date_nais_pers) VALUES (%(value_name)s, %(value_prenom)s, %(value_date)s)"""
                 with MaBaseDeDonnee() as mconn_bd:
                     mconn_bd.mabd_execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
@@ -199,13 +201,15 @@ def personne_update():
         if form_update.validate_on_submit():
             # Récupèrer la valeur du champ depuis "mail_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
-            name_genre_update = form_update.nom_genre_update_wtf.data
-            name_genre_update = name_genre_update.lower()
+            nom_wtf = form_update.nom_genre_update_wtf.data
+            prenom_wtf = form_update.prenom_wtf.data
+            date_wtf = form_update.date_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_personne": id_genre_update, "value_personne_genre": name_genre_update}
+            valeur_update_dictionnaire = {"value_id_personne":id_genre_update, "value_name": nom_wtf, "value_prenom": prenom_wtf, "value_date": date_wtf}
+
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_personne SET nom_pers = %(value_personne_genre)s WHERE id_personne = %(value_id_personne)s"""
+            str_sql_update_intitulegenre = """UPDATE t_personne SET nom_pers = %(value_name)s, prenom_pers = %(value_prenom)s, date_nais_pers = %(value_date)s WHERE id_personne = %(value_id_personne)s"""
             with MaBaseDeDonnee() as mconn_bd:
                 mconn_bd.mabd_execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
 
@@ -217,7 +221,7 @@ def personne_update():
             return redirect(url_for('personne_afficher', order_by="ASC", id_genre_sel=id_genre_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT id_personne, nom_pers FROM t_personne WHERE id_personne = %(value_id_personne)s"
+            str_sql_id_genre = "SELECT * FROM t_personne WHERE id_personne = %(value_id_personne)s"
             valeur_select_dictionnaire = {"value_id_personne": id_genre_update}
             mybd_curseur = MaBaseDeDonnee().connexion_bd.cursor()
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)
@@ -228,6 +232,8 @@ def personne_update():
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "mail_update_wtf.html"
             form_update.nom_genre_update_wtf.data = data_nom_genre["nom_pers"]
+            form_update.prenom_wtf.data = data_nom_genre["prenom_pers"]
+            form_update.date_wtf.data = data_nom_genre["date_nais_pers"]
 
     # OM 2020.04.16 ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
     except KeyError:
@@ -332,7 +338,7 @@ def personne_delete():
             session['data_films_attribue_genre_delete'] = data_films_attribue_genre_delete
 
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT id_personne, nom_pers FROM t_personne WHERE id_personne = %(value_id_genre)s"
+            str_sql_id_genre = "SELECT * FROM t_personne WHERE id_personne = %(value_id_genre)s"
 
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()",
@@ -344,6 +350,8 @@ def personne_delete():
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "mail_delete_wtf.html"
             form_delete.nom_genre_delete_wtf.data = data_nom_genre["nom_pers"]
+            form_delete.prenom_delete_wtf.data = data_nom_genre["prenom_pers"]
+            form_delete.data_delete_wtf.data = data_nom_genre["date_nais_pers"]
 
             # Le bouton pour l'action "DELETE" dans le form. "mail_delete_wtf.html" est caché.
             btn_submit_del = False
