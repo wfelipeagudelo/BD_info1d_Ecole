@@ -86,3 +86,4 @@ from APP_FILMS.mail import gestion_mail_crud
 from APP_FILMS.telephone import gestion_tel_crud
 from APP_FILMS.zzzdemos import routes_demos
 from APP_FILMS.appartenance import gestion_appartenance_crud
+from APP_FILMS.classe import gestion_classe_crud
