@@ -3,7 +3,7 @@ Module 104 Travaux Final!!
 
 
 # Presentation du travail fait dans le module 104 :
-* Merci d'avoir lit cette README.md
+* Merci d'avoir lu ce README.md
 * Pendant plusieurs semaines on a vu comment travailler avec Flask et python
 * Le choix de mon projet est une base des données pour une école de musique
 * Le but du projet (pas encore fini) est de remplacer le vieux software utilisée dans l'école pour l'inscription des éléves
@@ -19,10 +19,10 @@ Module 104 Travaux Final!!
 * Les relations et les données sont que des tests pour l'instant. Néé en moins, les regex pour les données marchent correctement (25.05.2021 errors dans regex pour les téléphones)
 
 ## REMERCIEMENTS
-* Les personnes suivantes m'ont aidée durant cette projet:
+* Les personnes suivantes m'ont aidée durant ce projet:
     * M. Maccaud
     * Romain (une partie du code est fait par lui, et il m'a aidée a corriger plusieurs des mes erreurs)
-    * Hérvet
+    * Hervé
 
 ## LIENS UTILISEES POUR CETTE PROJET
 * https://www.armandphilippot.com/dotenv-variables-environnement/
