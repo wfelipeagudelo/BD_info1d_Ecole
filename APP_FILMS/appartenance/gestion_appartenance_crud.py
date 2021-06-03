@@ -187,7 +187,7 @@ def appartenance_ajouter():
 @obj_mon_application.route("/appartenance_update", methods=['GET', 'POST'])
 def appartenance_update():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
-    id_genre_update = request.values['id_personne_btn_edit_html']
+    id_genre_update = request.values['id_appartenance_btn_edit_html']
     print("id_genre_update")
     print(id_genre_update)
 
@@ -217,7 +217,7 @@ def appartenance_update():
             return redirect(url_for('appartenance_afficher', order_by="ASC", id_genre_sel=id_genre_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT id_appartenancce, appartenance FROM t_appartenance WHERE id_appartenancce = %(value_id_personne)s"
+            str_sql_id_genre = "SELECT id_appartenancce, appartenance FROM t_appartenance WHERE id_appartenancce = %(value_id_appartenance)s"
             valeur_select_dictionnaire = {"value_id_appartenance": id_genre_update}
             mybd_curseur = MaBaseDeDonnee().connexion_bd.cursor()
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)

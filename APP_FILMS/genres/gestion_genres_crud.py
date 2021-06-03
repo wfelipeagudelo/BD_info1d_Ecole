@@ -125,7 +125,7 @@ def personne_ajouter():
                 raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
             if form.validate_on_submit():
-                nom_wtf = form.nom_genre_update_wtf.data
+                nom_wtf = form.nom_genre_wtf.data
                 prenom_wtf = form.prenom_wtf.data
                 date_wtf = form.date_wtf.data
 
