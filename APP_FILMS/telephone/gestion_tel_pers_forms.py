@@ -16,9 +16,9 @@ class FormWTFAjouterTelephone(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_num_regexp = "^(0|0041|\+41)?[1-9\s][0-9\s]{1,12}$"
-    nom_num_wtf = StringField("Entrer le numéro ", validators=[Length(min=2, max=21, message="min 2 max 20"),
+    nom_num_wtf = StringField("Entrer le numéro ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                    Regexp(nom_num_regexp,
-                                                                          message="Vous devez écrire le numéro avec cette forme: 07x xxx xx xx")
+                                                                          message="Vous devez écrire le numéro avec cette forme: 07x xxx xx xx/+41 XX XXX XX XX/0041 XX XXX XX XX")
                                                                    ])
     submit = SubmitField("Enregistrer le numéro")
 
@@ -29,7 +29,7 @@ class FormWTFUpdateTelephone(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_num_update_regexp = "^(0|0041|\+41)?[1-9\s][0-9\s]{1,12}$"
-    nom_genre_update_wtf = StringField("Entrer le numéro ", validators=[Length(min=2, max=10, message="min 2 max 20"),
+    nom_genre_update_wtf = StringField("Entrer le numéro ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                           Regexp(nom_num_update_regexp,
                                                                                  message="Vous devez écrire le numéro avec cette forme: 07x xxx xx xx")
                                                                           ])

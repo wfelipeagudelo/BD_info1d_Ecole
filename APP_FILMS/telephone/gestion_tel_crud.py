@@ -126,7 +126,7 @@ def tel_ajouter():
                 nom_genre_wtf = form.nom_num_wtf.data
 
                 name_genre = nom_genre_wtf
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": int(name_genre)}
+                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_genre = """INSERT INTO t_telephone (num_telephone) VALUES (%(value_intitule_genre)s)"""

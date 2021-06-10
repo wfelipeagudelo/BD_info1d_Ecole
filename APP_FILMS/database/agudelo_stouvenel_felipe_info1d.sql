@@ -261,7 +261,7 @@ CREATE TABLE `t_prix` (
 
 CREATE TABLE `t_telephone` (
   `id_telephone` int(11) NOT NULL,
-  `num_telephone` int(14) NOT NULL
+  `num_telephone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -272,7 +272,7 @@ CREATE TABLE `t_telephone` (
 
 CREATE TABLE `t_adresse` (
   `id_adresse` int(11) NOT NULL,
-  `adresse ` varchar(250) NOT NULL,
+  `adresse` varchar(250) NOT NULL,
   `ville` varchar(100) NOT NULL,
   `NPA` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

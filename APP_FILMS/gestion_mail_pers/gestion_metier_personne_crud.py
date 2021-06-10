@@ -48,7 +48,7 @@ def mail_personne_afficher(id_mail):
 
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
 
-                strsql_ingredient_film_afficher_data = """SELECT id_mail, mail, CONCAT(prenom_pers,nom_pers) as NomPers FROM t_pers_mail
+                strsql_ingredient_film_afficher_data = """SELECT id_mail, mail, GROUP_CONCAT(prenom_pers, " ",nom_pers) as NomPers FROM t_pers_mail
                                                             RIGHT JOIN t_personne ON t_personne.id_personne = t_pers_mail.fk_personne
                                                             RIGHT JOIN t_mail ON t_mail.id_mail = t_pers_mail.fk_mail
                                                             GROUP BY id_mail"""
@@ -296,20 +296,18 @@ def ingredient_film_afficher_data(valeur_id_film_selected_dict):
     print("valeur_id_film_selected_dict...", valeur_id_film_selected_dict)
     try:
 
-        strsql_film_selected = """SELECT id_mail, mail, GROUP_CONCAT(id_personne) as PersonneMetier FROM t_pers_mail
-                                        INNER JOIN t_mail ON t_mail.id_mail = t_pers_mail.fk_mail
-                                        INNER JOIN t_personne ON t_personne.id_personne = t_pers_mail.fk_personne
-                                        WHERE id_mail = %(value_id_mail_selected)s"""
+        strsql_film_selected = """SELECT id_mail, mail FROM t_mail WHERE id_mail = %(value_id_mail_selected)s"""
 
-        strsql_genres_films_non_attribues = """SELECT * FROM t_personne WHERE id_personne not in(SELECT id_personne as idPersonneMetier FROM t_pers_mail
-                                                    INNER JOIN t_mail ON t_mail.id_mail = t_pers_mail.fk_mail
+        strsql_genres_films_non_attribues = """SELECT id_personne, prenom_pers, nom_pers FROM t_personne 
+                                                    WHERE id_personne not in(SELECT id_personne as idPersonneMail FROM t_pers_mail
                                                     INNER JOIN t_personne ON t_personne.id_personne = t_pers_mail.fk_personne
+                                                    INNER JOIN t_mail ON t_mail.id_mail = t_pers_mail.fk_mail
                                                     WHERE id_mail = %(value_id_mail_selected)s)"""
 
-        strsql_genres_films_attribues = """SELECT id_mail, id_personne, nom_pers, prenom_pers FROM t_pers_mail
-                                            INNER JOIN t_mail ON t_mail.id_mail = t_pers_mail.fk_mail
+        strsql_genres_films_attribues = """SELECT id_personne, nom_pers, prenom_pers FROM t_pers_mail
                                             INNER JOIN t_personne ON t_personne.id_personne = t_pers_mail.fk_personne
-                                            WHERE id_mail = %(value_id_metier_selected)s"""
+                                            INNER JOIN t_mail ON t_mail.id_mail = t_pers_mail.fk_mail
+                                            WHERE id_mail = %(value_id_mail_selected)s"""
 
         # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
         with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
