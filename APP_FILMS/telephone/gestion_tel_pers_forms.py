@@ -12,7 +12,7 @@ from wtforms.validators import Regexp
 
 class FormWTFAjouterTelephone(FlaskForm):
     """
-        Dans le formulaire "mail_ajouter_wtf.html" on impose que le champ soit rempli.
+        Dans le formulaire "tel_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_num_regexp = "^(0|0041|\+41)?[1-9\s][0-9\s]{1,12}$"
@@ -25,7 +25,7 @@ class FormWTFAjouterTelephone(FlaskForm):
 
 class FormWTFUpdateTelephone(FlaskForm):
     """
-        Dans le formulaire "mail_update_wtf.html" on impose que le champ soit rempli.
+        Dans le formulaire "tel_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_num_update_regexp = "^(0|0041|\+41)?[1-9\s][0-9\s]{1,12}$"
@@ -38,7 +38,7 @@ class FormWTFUpdateTelephone(FlaskForm):
 
 class FormWTFDeleteTelephone(FlaskForm):
     """
-        Dans le formulaire "mail_delete_wtf.html"
+        Dans le formulaire "tel_delete_wtf.html"
 
         nom_genre_delete_wtf : Champ qui reçoit la valeur du genre, lecture seule. (readonly=true)
         submit_btn_del : Bouton d'effacement "DEFINITIF".

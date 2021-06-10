@@ -119,14 +119,14 @@ def tel_ajouter():
                 MaBaseDeDonnee().connexion_bd.ping(False)
             except Exception as erreur:
                 flash(f"Il faut connecter une base de donnée", "danger")
-                print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
+                print(f"Exception grave Tel constructeur GestionTel {erreur.args[0]}")
                 raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
             if form.validate_on_submit():
                 nom_genre_wtf = form.nom_num_wtf.data
 
-                name_genre = nom_genre_wtf.lower()
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
+                name_genre = nom_genre_wtf
+                valeurs_insertion_dictionnaire = {"value_intitule_genre": int(name_genre)}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_genre = """INSERT INTO t_telephone (num_telephone) VALUES (%(value_intitule_genre)s)"""

@@ -267,11 +267,12 @@ CREATE TABLE `t_telephone` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `t_ville`
+-- Structure de la table `t_adresse`
 --
 
-CREATE TABLE `t_ville` (
-  `id_ville` int(11) NOT NULL,
+CREATE TABLE `t_adresse` (
+  `id_adresse` int(11) NOT NULL,
+  `adresse ` varchar(250) NOT NULL,
   `ville` varchar(100) NOT NULL,
   `NPA` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -421,10 +422,10 @@ ALTER TABLE `t_telephone`
   ADD PRIMARY KEY (`id_telephone`);
 
 --
--- Index pour la table `t_ville`
+-- Index pour la table `t_adresse`
 --
-ALTER TABLE `t_ville`
-  ADD PRIMARY KEY (`id_ville`);
+ALTER TABLE `t_adresse`
+  ADD PRIMARY KEY (`id_adresse`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -531,10 +532,10 @@ ALTER TABLE `t_prix`
 ALTER TABLE `t_telephone`
   MODIFY `id_telephone` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `t_ville`
+-- AUTO_INCREMENT pour la table `t_adresse`
 --
-ALTER TABLE `t_ville`
-  MODIFY `id_ville` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `t_adresse`
+  MODIFY `id_adresse` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
 --
@@ -607,7 +608,7 @@ ALTER TABLE `t_pers_telephone`
 --
 ALTER TABLE `t_pers_ville`
   ADD CONSTRAINT `t_pers_ville_ibfk_1` FOREIGN KEY (`fk_personne`) REFERENCES `t_personne` (`id_personne`),
-  ADD CONSTRAINT `t_pers_ville_ibfk_2` FOREIGN KEY (`fk_ville`) REFERENCES `t_ville` (`id_ville`);
+  ADD CONSTRAINT `t_pers_ville_ibfk_2` FOREIGN KEY (`fk_ville`) REFERENCES `t_adresse` (`id_adresse`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

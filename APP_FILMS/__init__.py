@@ -88,3 +88,4 @@ from APP_FILMS.zzzdemos import routes_demos
 from APP_FILMS.appartenance import gestion_appartenance_crud
 from APP_FILMS.classe import gestion_classe_crud
 from APP_FILMS.instrument import gestion_instruments_crud
+from APP_FILMS.gestion_mail_pers import  gestion_metier_personne_crud
