@@ -10,13 +10,13 @@ Module 104 Travaux Final!!
 * Dans les prochaines mois, je vas continuer a travailler dans cette projet.
 * Mais vu que le Module 104 doit être rendu jusqu'au 13 juin, voici mon projet:
 
-# INTRODUCTION AU PROJET:
+# INTRODUCTION:
 * Dans un premier but, j'ai modifie la page de garde, un peu les codes HTML mais j'ai gardée le même style de page
 * Apres quelques modifications, on remarque que j'ai toujours les vieux dossiers "forms" etc. avec des exemples
 * Ces exemples restent la pour une future utilisation dans le projet
-* Dedans ce projet il y en a tous les tables avec des relations (23.05.2021 il y en a 4 tables qui marchent correctement)
-* Il y en a des relations entre les tables et des différentes tables intermédiaires (23.05.2021 seulement 1 qui marche)
-* Les relations et les données sont que des tests pour l'instant. Néé en moins, les regex pour les données marchent correctement (25.05.2021 errors dans regex pour les téléphones)
+* Dedans ce projet il y en a tous les tables avec des relations (actuellement 1 relation implemente celle des mails et personnes)
+* Il y en a des relations entre les tables et des différentes tables intermédiaires
+* Les relations et les données sont que des tests pour l'instant. Néé en moins, les regex pour les données marchent correctement
 
 ## REMERCIEMENTS
 * Les personnes suivantes m'ont aidée durant ce projet:
@@ -27,3 +27,8 @@ Module 104 Travaux Final!!
 ## LIENS UTILISEES POUR CETTE PROJET
 * https://www.armandphilippot.com/dotenv-variables-environnement/
 * https://stackoverflow.com/questions/23554872/why-does-pycharm-propose-to-change-method-to-static
+
+##VIDEOS YOUTUBE UTILISEES
+* https://www.youtube.com/watch?v=mqhxxeeTbu0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX&ab_channel=TechWithTim
+* https://youtu.be/HXV3zeQKqGY
+* Entre autres videos...
