@@ -201,7 +201,7 @@ def classe_update():
             # Récupèrer la valeur du champ depuis "mail_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
             name_genre_update = form_update.nom_genre_update_wtf.data
-            name_genre_update = name_genre_update.lower()
+            name_genre_update = name_genre_update.capitalize()
 
             valeur_update_dictionnaire = {"value_id_classe": id_genre_update,
                                           "value_personne_genre": name_genre_update}

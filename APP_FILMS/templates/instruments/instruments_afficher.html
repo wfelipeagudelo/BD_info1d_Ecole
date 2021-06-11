@@ -23,9 +23,6 @@
                         <th class="align-middle">
 
                         </th>
-                        <th class="align-middle">
-
-                        </th>
                     </tr>
                 </thead>
             {% endif %}
@@ -38,9 +35,6 @@
 						</td>
 						<td class="align-middle">
 							{{ row.nom_instrument }}
-						</td>
-						<td class="text-center" class="align-middle">
-							<a class="btn btn-primary" href="{{ url_for('instruments_ajouter') }}" role="button">Ajouter</a>
 						</td>
 						<td class="text-center" class="align-middle">
 							<a class="btn btn-warning" href="{{ url_for('instruments_update', id_instrument_btn_edit_html=row.id_instrument) }}" role="button">Edit</a>
@@ -63,6 +57,9 @@
 				</tbody>
             {% endfor %}
 			</table>
+            <p class="text-right" class="align-middle">
+                <a class="btn btn-primary" href="{{ url_for('instruments_ajouter') }}" role="button">Ajouter</a>
+            </p>
 		</div>
 	</div>
 </div>

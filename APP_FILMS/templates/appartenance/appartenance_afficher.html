@@ -23,9 +23,6 @@
                         <th class="align-middle">
 
                         </th>
-                        <th class="align-middle">
-
-                        </th>
                     </tr>
                 </thead>
             {% endif %}
@@ -38,9 +35,6 @@
 						</td>
 						<td class="align-middle">
 							{{ row.appartenance }}
-						</td>
-						<td class="text-center" class="align-middle">
-							<a class="btn btn-primary" href="{{ url_for('appartenance_ajouter') }}" role="button">Ajouter</a>
 						</td>
 						<td class="text-center" class="align-middle">
 							<a class="btn btn-warning" href="{{ url_for('appartenance_update', id_appartenance_btn_edit_html=row.id_appartenancce) }}" role="button">Edit</a>
@@ -56,13 +50,13 @@
 						<td>
 							Aucune personne sur la BD
 						</td>
-						<td>
-							<a class="btn btn-primary" href="{{ url_for('appartenance_ajouter') }}" role="button">Ajouter</a>
-						</td>
 					</tr>
 				</tbody>
             {% endfor %}
 			</table>
+            <p class="text-right" class="align-middle">
+                <a class="btn btn-primary" href="{{ url_for('appartenance_ajouter') }}" role="button">Ajouter</a>
+            </p>
 		</div>
 	</div>
 </div>
