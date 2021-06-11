@@ -17,15 +17,15 @@ from APP_FILMS import obj_mon_application
 from APP_FILMS.database.connect_db_context_manager import MaBaseDeDonnee
 from APP_FILMS.erreurs.exceptions import *
 from APP_FILMS.erreurs.msg_erreurs import *
-from APP_FILMS.instrument.gestion_instruments_wtf_forms import FormWTFAjouterInstruments
-from APP_FILMS.instrument.gestion_instruments_wtf_forms import FormWTFUpdateInstruments
-from APP_FILMS.instrument.gestion_instruments_wtf_forms import FormWTFDeleteInstruments
+from APP_FILMS.niveaux.gestion_niveaux_wtf_forms import FormWTFAjouterNiveaux
+from APP_FILMS.niveaux.gestion_niveaux_wtf_forms import FormWTFUpdateNiveaux
+from APP_FILMS.niveaux.gestion_niveaux_wtf_forms import FormWTFDeleteNiveaux
 
 """
     Auteur : OM 2021.03.16
-    Définition d'une "route" /instruments_afficher
+    Définition d'une "route" /niveaux_afficher
 
-    Test : ex : http://127.0.0.1:5005/instruments_afficher
+    Test : ex : http://127.0.0.1:5005/niveaux_afficher
 
     Paramètres : order_by : ASC : Ascendant, DESC : Descendant
                 id_genre_sel = 0 >> tous les genres.
@@ -33,8 +33,8 @@ from APP_FILMS.instrument.gestion_instruments_wtf_forms import FormWTFDeleteInst
 """
 
 
-@obj_mon_application.route("/instruments_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
-def instruments_afficher(order_by, id_genre_sel):
+@obj_mon_application.route("/niveaux_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
+def niveaux_afficher(order_by, id_genre_sel):
     if request.method == "GET":
         try:
             try:
@@ -42,12 +42,12 @@ def instruments_afficher(order_by, id_genre_sel):
                 MaBaseDeDonnee().connexion_bd.ping(False)
             except Exception as erreur:
                 flash(f"Il faut connecter une base de donnée", "danger")
-                print(f"Exception grave Classe constructeur GestionGenres {erreur.args[0]}")
+                print(f"Exception grave Classe constructeur GestionNiveaux {erreur.args[0]}")
                 raise MaBdErreurConnexion(f"{msg_erreurs['ErreurConnexionBD']['message']} {erreur.args[0]}")
 
             with MaBaseDeDonnee().connexion_bd.cursor() as mc_afficher:
                 if order_by == "ASC" and id_genre_sel == 0:
-                    strsql_genres_afficher = """SELECT * FROM t_instrument ORDER BY id_instrument ASC"""
+                    strsql_genres_afficher = """SELECT * FROM t_niveaux ORDER BY id_niveaux ASC"""
                     mc_afficher.execute(strsql_genres_afficher)
                 elif order_by == "ASC":
                     # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
@@ -55,11 +55,11 @@ def instruments_afficher(order_by, id_genre_sel):
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer id du instrument sélectionné avec un nom de variable
-                    strsql_genres_afficher = f"""SELECT * FROM t_instrument  WHERE id_instrument = '{id_genre_sel}'"""
+                    strsql_genres_afficher = f"""SELECT * FROM t_niveaux WHERE id_niveaux = '{id_genre_sel}'"""
 
                     mc_afficher.execute(strsql_genres_afficher)
                 else:
-                    strsql_genres_afficher = """SELECT * FROM t_instrument ORDER BY id_instrument DESC"""
+                    strsql_genres_afficher = """SELECT * FROM t_niveaux ORDER BY id_niveaux DESC"""
 
                     mc_afficher.execute(strsql_genres_afficher)
 
@@ -69,39 +69,39 @@ def instruments_afficher(order_by, id_genre_sel):
 
                 # Différencier les messages si la table est vide.
                 if not data_genres and id_genre_sel == 0:
-                    flash("""La table "t_instrument" est vide. !!""", "warning")
+                    flash("""La table "t_niveaux" est vide. !!""", "warning")
                 elif not data_genres and id_genre_sel > 0:
                     # Si l'utilisateur change l'id_genre dans l'URL et que le genre n'existe pas,
-                    flash(f"L'instrument demandé n'existe pas !!", "warning")
+                    flash(f"Le niveaux demandé n'existe pas !!", "warning")
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données des instruments affichés !!", "success")
+                    flash(f"Données des niveaux affichés !!", "success")
 
         except Exception as erreur:
-            print(f"RGG Erreur générale. instruments_afficher")
+            print(f"RGG Erreur générale. niveaux_afficher")
             # OM 2020.04.09 On dérive "Exception" par le "@obj_mon_application.errorhandler(404)"
             # fichier "run_mon_app.py"
             # Ainsi on peut avoir un message d'erreur personnalisé.
-            flash(f"RGG Exception {erreur} instruments_afficher", "danger")
+            flash(f"RGG Exception {erreur} niveaux_afficher", "danger")
             raise Exception(f"RGG Erreur générale. {erreur}")
             # raise MaBdErreurOperation(f"RGG Exception {msg_erreurs['ErreurNomBD']['message']} {erreur}")
 
     # Envoie la page "HTML" au serveur.
-    return render_template("instruments/instruments_afficher.html", data=data_genres)
+    return render_template("niveaux/niveaux_afficher.html", data=data_genres)
 
 
 """
     Auteur : OM 2021.03.22
-    Définition d'une "route" /instruments_ajouter
+    Définition d'une "route" /niveaux_ajouter
 
-    Test : ex : http://127.0.0.1:5005/instruments_ajouter
+    Test : ex : http://127.0.0.1:5005/niveaux_ajouter
 
     Paramètres : sans
 
-    But : Ajouter un instrument
+    But : Ajouter un niveaux
 
-    Remarque :  Dans le champ "instruments_html" du formulaire "instruments/instruments_ajouter.html",
+    Remarque :  Dans le champ "niveaux_html" du formulaire "niveaux/niveaux_ajouter.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -111,9 +111,9 @@ def instruments_afficher(order_by, id_genre_sel):
 """
 
 
-@obj_mon_application.route("/instruments_ajouter", methods=['GET', 'POST'])
-def instruments_ajouter():
-    form = FormWTFAjouterInstruments()
+@obj_mon_application.route("/niveaux_ajouter", methods=['GET', 'POST'])
+def niveaux_ajouter():
+    form = FormWTFAjouterNiveaux()
     if request.method == "POST":
         try:
             try:
@@ -131,7 +131,7 @@ def instruments_ajouter():
                 valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_instrument (nom_instrument) VALUES (%(value_intitule_genre)s)"""
+                strsql_insert_genre = """INSERT INTO t_niveaux (niveaux) VALUES (%(value_intitule_genre)s)"""
                 with MaBaseDeDonnee() as mconn_bd:
                     mconn_bd.mabd_execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
@@ -139,7 +139,7 @@ def instruments_ajouter():
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
-                return redirect(url_for('instruments_afficher', order_by='DESC', id_genre_sel=0))
+                return redirect(url_for('niveaux_afficher', order_by='DESC', id_genre_sel=0))
 
         # ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
         except pymysql.err.IntegrityError as erreur_genre_doublon:
@@ -157,24 +157,24 @@ def instruments_ajouter():
             code, msg = erreur_gest_genr_crud.args
 
             flash(f"{error_codes.get(code, msg)} ", "danger")
-            flash(f"Erreur dans Gestion instruments CRUD : {sys.exc_info()[0]} "
+            flash(f"Erreur dans Gestion niveaux CRUD : {sys.exc_info()[0]} "
                   f"{erreur_gest_genr_crud.args[0]} , "
                   f"{erreur_gest_genr_crud}", "danger")
 
-    return render_template("instruments/instruments_ajouter_wtf.html", form=form)
+    return render_template("niveaux/niveaux_ajouter_wtf.html", form=form)
 
 
 """
     Auteur : OM 2021.03.29
-    Définition d'une "route" /instruments_update
+    Définition d'une "route" /niveaux_update
 
-    Test : ex cliquer sur le menu "instrument" puis cliquer sur le bouton "EDIT" d'un "instrument"
+    Test : ex cliquer sur le menu "niveaux" puis cliquer sur le bouton "EDIT" d'un "niveaux"
 
     Paramètres : sans
 
-    But : Editer(update) un instrument qui a été sélectionné dans le formulaire "instruments_afficher.html"
+    But : Editer(update) un instrument qui a été sélectionné dans le formulaire "niveaux_afficher.html"
 
-    Remarque :  Dans le champ "nom_genre_update_wtf" du formulaire "instruments/instruments_update_wtf.html",
+    Remarque :  Dans le champ "nom_genre_update_wtf" du formulaire "niveaux/niveaux_update_wtf.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -184,15 +184,15 @@ def instruments_ajouter():
 """
 
 
-@obj_mon_application.route("/instruments_update", methods=['GET', 'POST'])
-def instruments_update():
+@obj_mon_application.route("/niveaux_update", methods=['GET', 'POST'])
+def niveaux_update():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_classe"
-    id_genre_update = request.values['id_instrument_btn_edit_html']
+    id_genre_update = request.values['id_niveaux_btn_edit_html']
     print("id_genre_update")
     print(id_genre_update)
 
     # Objet formulaire pour l'UPDATE
-    form_update = FormWTFUpdateInstruments()
+    form_update = FormWTFUpdateNiveaux()
     try:
         print(" on submit ", form_update.validate_on_submit())
         if form_update.validate_on_submit():
@@ -201,11 +201,11 @@ def instruments_update():
             name_genre_update = form_update.nom_genre_update_wtf.data
             name_genre_update = name_genre_update.lower()
 
-            valeur_update_dictionnaire = {"value_id_instrument": id_genre_update,
+            valeur_update_dictionnaire = {"value_id_niveaux": id_genre_update,
                                           "value_personne_genre": name_genre_update}
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_instrument SET nom_instrument = %(value_personne_genre)s WHERE id_instrument = %(value_id_instrument)s"""
+            str_sql_update_intitulegenre = """UPDATE t_niveaux SET niveaux = %(value_personne_genre)s WHERE id_niveaux = %(value_id_niveaux)s"""
             with MaBaseDeDonnee() as mconn_bd:
                 mconn_bd.mabd_execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
 
@@ -214,27 +214,27 @@ def instruments_update():
 
             # afficher et constater que la donnée est mise à jour.
             # Affiche seulement la valeur modifiée, "ASC" et l'"id_genre_update"
-            return redirect(url_for('instruments_afficher', order_by="ASC", id_genre_sel=id_genre_update))
+            return redirect(url_for('niveaux_afficher', order_by="ASC", id_genre_sel=id_genre_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT * FROM t_instrument WHERE id_instrument = %(value_id_instrument)s"
-            valeur_select_dictionnaire = {"value_id_instrument": id_genre_update}
+            str_sql_id_genre = "SELECT * FROM t_niveaux WHERE id_niveaux = %(value_id_niveaux)s"
+            valeur_select_dictionnaire = {"value_id_niveaux": id_genre_update}
             mybd_curseur = MaBaseDeDonnee().connexion_bd.cursor()
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "instrument" pour l'UPDATE
             data_nom_genre = mybd_curseur.fetchone()
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["nom_instrument"])
+                  data_nom_genre["niveaux"])
 
-            # Afficher la valeur sélectionnée dans le champ du formulaire "appartenance_update_wtf.html"
-            form_update.nom_genre_update_wtf.data = data_nom_genre["nom_instrument"]
+            # Afficher la valeur sélectionnée dans le champ du formulaire "niveaux_update_wtf.html"
+            form_update.nom_genre_update_wtf.data = data_nom_genre["niveaux"]
 
     # OM 2020.04.16 ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
     except KeyError:
-        flash(f"__KeyError dans instruments_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
+        flash(f"__KeyError dans niveaux_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
     except ValueError:
-        flash(f"Erreur dans instruments_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]}", "danger")
+        flash(f"Erreur dans niveaux_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]}", "danger")
     except (pymysql.err.OperationalError,
             pymysql.ProgrammingError,
             pymysql.InternalError,
@@ -242,45 +242,45 @@ def instruments_update():
             TypeError) as erreur_gest_genr_crud:
         code, msg = erreur_gest_genr_crud.args
         flash(f"attention : {error_codes.get(code, msg)} {erreur_gest_genr_crud} ", "danger")
-        flash(f"Erreur dans instruments_update_wtf : {sys.exc_info()[0]} "
+        flash(f"Erreur dans niveaux_update_wtf : {sys.exc_info()[0]} "
               f"{erreur_gest_genr_crud.args[0]} , "
               f"{erreur_gest_genr_crud}", "danger")
-        flash(f"__KeyError dans instruments_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
+        flash(f"__KeyError dans niveaux_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
 
-    return render_template("instruments/instruments_update_wtf.html", form_update=form_update)
+    return render_template("niveaux/niveaux_update_wtf.html", form_update=form_update)
 
 
 """
     Auteur : OM 2021.04.08
-    Définition d'une "route" /instruments_delete
+    Définition d'une "route" /niveaux_delete
 
-    Test : ex. cliquer sur le menu "genres" puis cliquer sur le bouton "DELETE" d'un "insrument"
+    Test : ex. cliquer sur le menu "niveaux" puis cliquer sur le bouton "DELETE" d'un "niveaux"
 
     Paramètres : sans
 
-    But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "instrument_afficher.html"
+    But : Effacer(delete) un niveaux qui a été sélectionné dans le formulaire "niveaux_afficher.html"
 
-    Remarque :  Dans le champ "nom_genre_delete_wtf" du formulaire "instruments/instruments_delete_wtf.html",
+    Remarque :  Dans le champ "nom_genre_delete_wtf" du formulaire "niveaux/niveaux_delete_wtf.html",
                 le contrôle de la saisie est désactivée. On doit simplement cliquer sur "DELETE"
 """
 
 
-@obj_mon_application.route("/instruments_delete", methods=['GET', 'POST'])
-def instruments_delete():
+@obj_mon_application.route("/niveaux_delete", methods=['GET', 'POST'])
+def niveaux_delete():
     data_films_attribue_genre_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_instruments"
-    id_genre_delete = request.values['id_instrument_btn_delete_html']
+    id_genre_delete = request.values['id_niveaux_btn_delete_html']
 
     # Objet formulaire pour effacer le genre sélectionné.
-    form_delete = FormWTFDeleteInstruments()
+    form_delete = FormWTFDeleteNiveaux()
     try:
         print(" on submit ", form_delete.validate_on_submit())
         if request.method == "POST" and form_delete.validate_on_submit():
 
             if form_delete.submit_btn_annuler.data:
-                return redirect(url_for("instruments_afficher", order_by="ASC", id_genre_sel=0))
+                return redirect(url_for("niveaux_afficher", order_by="ASC", id_genre_sel=0))
 
             if form_delete.submit_btn_conf_del.data:
                 # Récupère les données afin d'afficher à nouveau
@@ -294,11 +294,11 @@ def instruments_delete():
                 btn_submit_del = True
 
             if form_delete.submit_btn_del.data:
-                valeur_delete_dictionnaire = {"value_id_instrument": id_genre_delete}
+                valeur_delete_dictionnaire = {"value_id_niveaux": id_genre_delete}
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-                str_sql_delete_films_genre = """DELETE FROM t_pers_instrument WHERE fk_instrument = %(value_id_genre)s"""
-                str_sql_delete_idgenre = """DELETE FROM t_instrument WHERE id_instrument = %(value_id_genre)s"""
+                str_sql_delete_films_genre = """DELETE FROM t_pers_niveaux WHERE fk_niveaux = %(value_id_genre)s"""
+                str_sql_delete_idgenre = """DELETE FROM t_niveaux WHERE id_niveaux = %(value_id_genre)s"""
                 # Manière brutale d'effacer d'abord la "fk_instrument", même si elle n'existe pas dans la "t_genre_film"
                 # Ensuite on peut effacer le genre vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
                 with MaBaseDeDonnee() as mconn_bd:
@@ -309,17 +309,17 @@ def instruments_delete():
                 print(f"Instrument effacé !!")
 
                 # afficher les données
-                return redirect(url_for('instruments_afficher', order_by="ASC", id_genre_sel=0))
+                return redirect(url_for('niveaux_afficher', order_by="ASC", id_genre_sel=0))
 
         if request.method == "GET":
-            valeur_select_dictionnaire = {"value_id_instrument": id_genre_delete}
+            valeur_select_dictionnaire = {"value_id_niveaux": id_genre_delete}
             print(id_genre_delete, type(id_genre_delete))
 
             # Requête qui affiche tous les films qui ont le genre que l'utilisateur veut effacer
-            str_sql_genres_films_delete = """SELECT * FROM t_pers_instrument
-                                            INNER JOIN t_instrument ON t_instrument.id_instrument = t_pers_instrument.fk_instrument
-                                            INNER JOIN t_personne ON t_personne.id_personne = t_pers_instrument.fk_personne
-                                            WHERE fk_instrument = %(value_id_genre)s"""
+            str_sql_genres_films_delete = """SELECT * FROM t_pers_niveaux
+                                            INNER JOIN t_niveaux ON t_niveaux.id_niveaux = t_pers_niveaux.fk_niveaux
+                                            INNER JOIN t_personne ON t_personne.id_personne = t_pers_niveaux.fk_personne
+                                            WHERE fk_niveaux = %(value_id_genre)s"""
 
             mybd_curseur = MaBaseDeDonnee().connexion_bd.cursor()
 
@@ -331,8 +331,8 @@ def instruments_delete():
             # le formulaire "genres/mail_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
             session['data_films_attribue_genre_delete'] = data_films_attribue_genre_delete
 
-            # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT * FROM t_instrument WHERE id_instrument = %(value_id_genre)s"
+            # Opération sur la BD pour récupérer "id_niveaux" et "niveaux" de la "t_niveaux"
+            str_sql_id_genre = "SELECT * FROM t_niveaux WHERE id_niveaux = %(value_id_genre)s"
 
             mybd_curseur.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()",
@@ -340,20 +340,20 @@ def instruments_delete():
             data_nom_genre = mybd_curseur.fetchone()
 
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["nom_instrument"])
+                  data_nom_genre["niveaux"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "instrument_delete_wtf.html"
-            form_delete.nom_genre_delete_wtf.data = data_nom_genre["nom_instrument"]
+            form_delete.nom_genre_delete_wtf.data = data_nom_genre["niveaux"]
 
             # Le bouton pour l'action "DELETE" dans le form. "instrument_delete_wtf.html" est caché.
             btn_submit_del = False
 
     # OM 2020.04.16 ATTENTION à l'ordre des excepts, il est très important de respecter l'ordre.
     except KeyError:
-        flash(f"__KeyError dans instruments_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
+        flash(f"__KeyError dans niveaux_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
     except ValueError:
-        flash(f"Erreur dans instruments_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]}", "danger")
+        flash(f"Erreur dans niveaux_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]}", "danger")
     except (pymysql.err.OperationalError,
             pymysql.ProgrammingError,
             pymysql.InternalError,
@@ -362,14 +362,14 @@ def instruments_delete():
         code, msg = erreur_gest_genr_crud.args
         flash(f"attention : {error_codes.get(code, msg)} {erreur_gest_genr_crud} ", "danger")
 
-        flash(f"Erreur dans instruments_delete_wtf : {sys.exc_info()[0]} "
+        flash(f"Erreur dans niveaux_delete_wtf : {sys.exc_info()[0]} "
               f"{erreur_gest_genr_crud.args[0]} , "
               f"{erreur_gest_genr_crud}", "danger")
 
-        flash(f"__KeyError dans instruments_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
+        flash(f"__KeyError dans niveaux_delete_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
 
-    return render_template("instruments/instruments_delete_wtf.html",
+    return render_template("niveaux/niveaux_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
                            data_films_associes=data_films_attribue_genre_delete)

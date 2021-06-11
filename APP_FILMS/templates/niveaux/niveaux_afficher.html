@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Afficher les classes sur la BD {% endblock %}
+{% block title %} Afficher les niveaux dans la BD {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Classes dans la basse des données
+				Niveaux dans la basse des données
 			</p>
             <table class="table table-bordered table-sm">
             {% if data %}
@@ -15,10 +15,10 @@
                             id
                         </th>
                         <th class="align-middle">
-                            Classe
+                            Niveaux
                         </th>
                         <th class="align-middle">
-                            Temps de la classe
+
                         </th>
                         <th class="align-middle">
 
@@ -34,22 +34,19 @@
 				<tbody>
 					<tr>
 						<td class="align-middle">
-							{{ row.id_classe }}
+							{{ row.id_niveaux }}
 						</td>
 						<td class="align-middle">
-							{{ row.nom_classe }}
-						</td>
-                        <td class="align-middle">
-							{{ row.temps }}
+							{{ row.niveaux }}
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-primary" href="{{ url_for('classe_ajouter') }}" role="button">Ajouter</a>
+							<a class="btn btn-primary" href="{{ url_for('niveaux_ajouter') }}" role="button">Ajouter</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('classe_update', id_appartenance_btn_edit_html=row.id_classe) }}" role="button">Edit</a>
+							<a class="btn btn-warning" href="{{ url_for('niveaux_update', id_appartenance_btn_edit_html=row.id_niveaux) }}" role="button">Edit</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-danger" href="{{ url_for('classe_delete', id_appartenance_btn_delete_html=row.id_classe) }}" role="button">Delete</a>
+							<a class="btn btn-danger" href="{{ url_for('niveaux_delete', id_appartenance_btn_delete_html=row.id_niveaux) }}" role="button">Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -57,10 +54,10 @@
 				<tbody>
 					<tr>
 						<td>
-							Aucune classe sur la BD
+							Aucun niveaux sur la BD
 						</td>
 						<td>
-							<a class="btn btn-primary" href="{{ url_for('classe_ajouter') }}" role="button">Ajouter</a>
+							<a class="btn btn-primary" href="{{ url_for('niveaux_ajouter') }}" role="button">Ajouter</a>
 						</td>
 					</tr>
 				</tbody>

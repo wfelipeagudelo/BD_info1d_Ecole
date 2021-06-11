@@ -53,21 +53,16 @@
                     <li class="nav-item">
 						<a class="nav-link" href="{{ url_for('tel_afficher', order_by='ASC', id_genre_sel=0) }}">Télephone</a>
 					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="{{ url_for('appartenance_afficher', order_by='ASC', id_genre_sel=0) }}">Appartenance</a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="{{ url_for('classe_afficher', order_by='ASC', id_genre_sel=0) }}">Classe</a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="{{ url_for('instruments_afficher', order_by='ASC', id_genre_sel=0) }}">Instruments</a>
-					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Années precedents
+							Organisation des cours
 						</a>
 						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
 							<li><a class="dropdown-item" href="{{ url_for('mon_premier_wtform') }}">Essai form</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('instruments_afficher', order_by='ASC', id_genre_sel=0) }}">Instruments</a></li>
+							<li><a class="dropdown-item" href="{{ url_for('classe_afficher', order_by='ASC', id_genre_sel=0) }}">Classe</a></li>
+							<li><a class="dropdown-item" href="{{ url_for('appartenance_afficher', order_by='ASC', id_genre_sel=0) }}">Appartenance</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('niveaux_afficher', order_by='ASC', id_genre_sel=0) }}">Niveaux</a></li>
 						</ul>
 					</li>
 				</ul>

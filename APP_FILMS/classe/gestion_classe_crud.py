@@ -128,7 +128,7 @@ def classe_ajouter():
                 name_genre_wtf = form.nom_genre_wtf.data
                 temps_wtf = form.temps_wtf.data
 
-                name_genre = name_genre_wtf.lower()
+                name_genre = name_genre_wtf.capitalize()
                 temps = temps_wtf
                 valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre, "value_temps": temps}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
