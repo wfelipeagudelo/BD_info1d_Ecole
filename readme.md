@@ -28,7 +28,7 @@ Module 104 Travaux Final!!
 * https://www.armandphilippot.com/dotenv-variables-environnement/
 * https://stackoverflow.com/questions/23554872/why-does-pycharm-propose-to-change-method-to-static
 
-##VIDEOS YOUTUBE UTILISEES
+## VIDEOS YOUTUBE UTILISEES
 * https://www.youtube.com/watch?v=mqhxxeeTbu0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX&ab_channel=TechWithTim
 * https://youtu.be/HXV3zeQKqGY
 * Entre autres videos...
