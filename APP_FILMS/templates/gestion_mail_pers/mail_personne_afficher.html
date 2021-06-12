@@ -26,7 +26,7 @@
 			<tbody>
 				<tr>
 					  <td class="align-middle" colspan="1">
-                          {{ row.NomPers | default("PAS DE PERSONNE INDIQUÉ", True) }}
+                          {{ row.NomPers | default("Aucune personne associée au mail", True) }}
                       </td>
                       <td class="align-middle">
 						{{ row.id_mail }}

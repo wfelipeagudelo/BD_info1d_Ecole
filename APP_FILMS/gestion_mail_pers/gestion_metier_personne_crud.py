@@ -240,10 +240,10 @@ def update_mail_personne_selected():
 
             # SQL pour insérer une nouvelle association entre
             # "fk_film"/"id_film" et "fk_genre"/"id_genre" dans la "t_genre_film"
-            strsql_insert_genre_film = """INSERT INTO t_pers_mail (fk_personne, fk_mail) VALUES (%(value_fk_genre)s, %(value_fk_film)s)"""
+            strsql_insert_genre_film = """INSERT INTO t_pers_mail (fk_personne, fk_mail) VALUES (%(value_fk_personne)s, %(value_fk_mail)s)"""
 
             # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_genre" dans la "t_genre_film"
-            strsql_delete_genre_film = """DELETE FROM t_pers_mail WHERE fk_personne = %(value_fk_genre)s AND fk_mail = %(value_fk_film)s"""
+            strsql_delete_genre_film = """DELETE FROM t_pers_mail WHERE fk_personne = %(value_fk_personne)s AND fk_mail = %(value_fk_mail)s"""
 
             with MaBaseDeDonnee() as mconn_bd:
                 # Pour le film sélectionné, parcourir la liste des ingredient à INSÉRER dans la "t_genre_film".
@@ -251,8 +251,8 @@ def update_mail_personne_selected():
                 for id_genre_ins in lst_diff_genres_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                     # et "id_genre_ins" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_film_selected,
-                                                               "value_fk_genre": id_genre_ins}
+                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_mail": id_film_selected,
+                                                               "value_fk_personne": id_genre_ins}
 
                     mconn_bd.mabd_execute(strsql_insert_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
 
@@ -261,8 +261,8 @@ def update_mail_personne_selected():
                 for id_genre_del in lst_diff_genres_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                     # et "id_genre_del" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_film_selected,
-                                                               "value_fk_genre": id_genre_del}
+                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_mail": id_film_selected,
+                                                               "value_fk_personne": id_genre_del}
 
                     # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
                     # la subtilité consiste à avoir une méthode "mabd_execute" dans la classe "MaBaseDeDonnee"
