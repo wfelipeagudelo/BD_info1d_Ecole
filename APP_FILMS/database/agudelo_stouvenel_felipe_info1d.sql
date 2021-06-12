@@ -333,81 +333,60 @@ ALTER TABLE `t_personne`
 -- Index pour la table `t_pers_appartenance`
 --
 ALTER TABLE `t_pers_appartenance`
-  ADD PRIMARY KEY (`id_pers_appartenance`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`,`fk_appartenance`),
-  ADD KEY `fk_appartenance` (`fk_appartenance`);
+  ADD PRIMARY KEY (`id_pers_appartenance`);
 
 --
 -- Index pour la table `t_pers_avs`
 --
 ALTER TABLE `t_pers_avs`
-  ADD PRIMARY KEY (`id_pers_avs`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`,`fk_avs`),
-  ADD KEY `fk_avs` (`fk_avs`);
+  ADD PRIMARY KEY (`id_pers_avs`);
 
 --
 -- Index pour la table `t_pers_banque`
 --
 ALTER TABLE `t_pers_banque`
-  ADD PRIMARY KEY (`id_pers_banque`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`,`fk_banque`),
-  ADD KEY `fk_banque` (`fk_banque`);
+  ADD PRIMARY KEY (`id_pers_banque`);
 
 --
 -- Index pour la table `t_pers_classe`
 --
 ALTER TABLE `t_pers_classe`
-  ADD PRIMARY KEY (`id_pers_classe`),
-  ADD KEY `fk_personne` (`fk_personne`,`fk_classe`),
-  ADD KEY `fk_classe` (`fk_classe`);
+  ADD PRIMARY KEY (`id_pers_classe`);
 
 --
 -- Index pour la table `t_pers_instrument`
 --
 ALTER TABLE `t_pers_instrument`
-  ADD PRIMARY KEY (`id_pers_instrument`),
-  ADD KEY `fk_personne` (`fk_personne`),
-  ADD KEY `fk_tracteur` (`fk_instrument`);
+  ADD PRIMARY KEY (`id_pers_instrument`);
 
 --
 -- Index pour la table `t_pers_mail`
 --
 ALTER TABLE `t_pers_mail`
-  ADD PRIMARY KEY (`id_pers_mail`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`),
-  ADD UNIQUE KEY `fk_mail` (`fk_mail`);
+  ADD PRIMARY KEY (`id_pers_mail`);
 
 --
 -- Index pour la table `t_pers_niveaux`
 --
 ALTER TABLE `t_pers_niveaux`
-  ADD PRIMARY KEY (`id_pers_niveaux`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`),
-  ADD UNIQUE KEY `fk_niveaux` (`fk_niveaux`);
-
+  ADD PRIMARY KEY (`id_pers_niveaux`);
 --
 -- Index pour la table `t_pers_prix`
 --
 ALTER TABLE `t_pers_prix`
-  ADD PRIMARY KEY (`id_pers_prix`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`,`fk_prix`),
-  ADD KEY `fk_prix` (`fk_prix`);
+  ADD PRIMARY KEY (`id_pers_prix`);
 
 --
 -- Index pour la table `t_pers_telephone`
 --
 ALTER TABLE `t_pers_telephone`
-  ADD PRIMARY KEY (`id_pers_telephone`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`,`fk_telephone`),
-  ADD KEY `fk_telephone` (`fk_telephone`);
+  ADD PRIMARY KEY (`id_pers_telephone`);
 
 --
 -- Index pour la table `t_pers_ville`
 --
 ALTER TABLE `t_pers_ville`
-  ADD PRIMARY KEY (`id_pers_ville`),
-  ADD UNIQUE KEY `fk_personne` (`fk_personne`,`fk_ville`),
-  ADD KEY `fk_ville` (`fk_ville`);
+  ADD PRIMARY KEY (`id_pers_ville`);
 
 --
 -- Index pour la table `t_prix`
