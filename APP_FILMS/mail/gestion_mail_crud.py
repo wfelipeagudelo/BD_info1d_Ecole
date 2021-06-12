@@ -198,7 +198,6 @@ def mail_update():
             # Récupèrer la valeur du champ depuis "mail_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
             name_genre_update = form_update.nom_genre_update_wtf.data
-            name_genre_update = name_genre_update.lower()
 
             valeur_update_dictionnaire = {"value_id_mail": id_genre_update, "value_personne_genre": name_genre_update}
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
@@ -246,7 +245,7 @@ def mail_update():
         flash(f"__KeyError dans genre_update_wtf : {sys.exc_info()[0]} {sys.exc_info()[1]} {sys.exc_info()[2]}",
               "danger")
 
-    return render_template("genres/genre_update_wtf.html", form_update=form_update)
+    return render_template("mail/mail_update_wtf.html", form_update=form_update)
 
 
 """
